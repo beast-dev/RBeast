@@ -10,3 +10,9 @@ Maintainer: Nuno Faria <nmrfaria@gmail.com>
 Description: More about what it does (maybe more than one line)
 License: What license is it under?
 LazyData: TRUE
+Imports:
+	rJava,
+	RColorBrewer
+Suggests:
+	knitr
+VignetteBuilder: knitr

@@ -1,12 +1,37 @@
 
+.onLoad <- function(libname, pkgname) {
+	rJava::.jpackage(pkgname, lib.loc = libname)
+}
+
+
+#' @title
+#' runBeast
+#'
+#' @description
+#' \code{runBeast} spins up BEAST
+#'
+#' @details
+#' This function executes BEAST through rJava.
+#'
+#' @param commandLine Command-line string to pass to BEAST
+#'
+#' @examples
+#' runBeast()
+#'
+#' @export
+runBeast <- function(commandLine = "") {
+
+	strings <- rJava::.jarray(commandLine)
+	rJava::J("dr.app.beast.BeastMain")$main(strings)
+}
 
 plotStackedAreas <- function(
-	data, 
+	data,
 	stacked100=TRUE,
 	boxlwd=1.5,
 	order = NA,
-	ylab="", xlab="", 
-	areaBorderWidth= NA, 
+	ylab="", xlab="",
+	areaBorderWidth= NA,
 	areaBorderCol="black",
 	colours= NA,
 	addAxisSpace=FALSE,
@@ -32,16 +57,16 @@ plotStackedAreas <- function(
 		Y= data[,2:ncol(data)]/dataSums
 	}else{
 		Y= data[,2:ncol(data)]
-	}	
+	}
 	ndatacols= ncol(Y)
 
 	#make some checks before it breaks
 	if(sum(Y<0)>=1) stop("Data columns can not have negative values.")
 	if(sum(X<0)>=1) stop("Time scale can not have negative values.")
-	if(nrow(Y)==0) stop("Data columns appear to be empty.")	
-	if(length(X)==0) stop("Time scale appears to be empty.")	
-		
-	#work on default parameters	
+	if(nrow(Y)==0) stop("Data columns appear to be empty.")
+	if(length(X)==0) stop("Time scale appears to be empty.")
+
+	#work on default parameters
 	if(is.na(areaBorderWidth)) areaBorderWidth<- 1
 	if(length(colours)==1){
 		if(is.na(colours)) colours<- rainbow(ndatacols)
@@ -49,7 +74,7 @@ plotStackedAreas <- function(
 	areaBorderCol <- as.vector(matrix(areaBorderCol, nrow=ndatacols, ncol=1))
 	colours <- as.vector(matrix(colours, nrow=ndatacols, ncol=1))
 	areaBorderWidth <- as.vector(matrix(areaBorderWidth, nrow=ndatacols, ncol=1))
-	
+
 	if(length(order)>1) {
 		if(length(order)!=ndatacols) stop("Order array must be the length of data columns.")
 		Y <- Y[, order]

@@ -33,7 +33,7 @@ demo <- function() {
 		data<- addTimeScaleToData(iT= itime, fT= ftime, data=data)
 		nDataCols<- ncol(data)-1 #how many data columns we have, excluding time
 
-		source("~/Desktop/Trinidad/LTT/plotStackedAreas.R")
+		# source("~/Desktop/Trinidad/LTT/plotStackedAreas.R")
 
 	#examples of plotting
 
@@ -54,10 +54,10 @@ demo <- function() {
 		)
 
 		### Load the package or install if not present
-		if (!require("RColorBrewer")) {
-		  install.packages("RColorBrewer")
-		  library(RColorBrewer)
-		}
+# 		if (!require("RColorBrewer")) {
+# 		  install.packages("RColorBrewer")
+# 		  library(RColorBrewer)
+# 		}
 
 		#stacked plot, working with options
 		#myColours= brewer.pal(8,"Set1")
