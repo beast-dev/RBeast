@@ -22,7 +22,7 @@
 runBeast <- function(commandLine = "") {
 
 	strings <- rJava::.jarray(commandLine)
-	rJava::J("dr.app.beast.BeastMain")$main(strings)
+	rJava::J("dr.app.beast.RBeastMain")$main(strings)
 }
 
 plotStackedAreas <- function(
