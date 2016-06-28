@@ -107,7 +107,7 @@ OperatorsBlock <- function(ssvs, dist = c("normal", "poisson", "negativeBinomial
 			, sep = "")
 	}
 	Dist <- match.arg(dist)
-	gaussian.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\10\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n"
+	gaussian.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"10\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n"
 	finalOpsBlock <- switch(Dist,
 													normal = OpsBlock,
 													poisson = gsub(gaussian.ScaleOPStr, "", OpsBlock),
