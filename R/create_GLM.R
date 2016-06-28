@@ -290,7 +290,7 @@ glmXML <- function(response_variable, Distribution, Dt, DoBSSVS = TRUE,
     parseGLMBlock(dist = Distribution,
                   respVar = response_variable, designMat = Dt[, -1]),
     StatsBlock(),
-    OperatorsBlock(ssvs = DoBSSVS),
+    OperatorsBlock(ssvs = DoBSSVS, dist = Distribution),
     parseMCMC(Nit = Niter, thin = Nthin, runName = file_name, Dim = ncol(Dt)-1, dist = Distribution, pr_zero = Pr_Zero),
     parseTail(),
     sep = ""
