@@ -252,7 +252,7 @@ parsePriors <- function(dist = c("normal", "poisson", "negativeBinomial"), dim, 
 	NegativeBinomialPriorString <-
 	  "\t<prior id=\"prior\">\n
 \t\t<normalPrior mean=\"0\" stdev=\"2\">\n\t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</normalPrior>\n
-\t\t<gammaPrior shape=\"1.0\" scale=\"1.0\">\n\t\t\t<parameter idref=\"NB.alpha\" />\n\t\t</gammaPrior>\n
+\t\t<gammaPrior shape=\"1.0\" scale=\"10.0\">\n\t\t\t<parameter idref=\"NB.alpha\" />\n\t\t</gammaPrior>\n
 \t\t<binomialLikelihood>\n\t\t\t<proportion>\n\t\t\t\t<parameter value=\"%f\"/>\n\t\t\t</proportion>\n\t\t\t<trials>\n\t\t\t\t<parameter value=\"%s\"/>\n\t\t\t</trials>\n\t\t\t<counts>\n\t\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t\t</counts>\n\t\t</binomialLikelihood>\n
 	\t</prior>\n"
 	
