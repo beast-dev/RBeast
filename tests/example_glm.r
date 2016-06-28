@@ -30,9 +30,9 @@ logLik(glm(Y ~ -1 + ., data = poissonData, family = "poisson"))
 ###
 library(RBeast)
 normalXML <- glmXML(response_variable = "Y", Distribution = "normal", file_name = "gaussian_test", Niter = 5E6,
-                    Nthin = Niter/1E3, DoBSSVS = TRUE, Pr_Zero = .5, Dt = normalData)
+                    Nthin = 5E6/1E3, DoBSSVS = TRUE, Pr_Zero = .5, Dt = normalData)
 poissonXML <- glmXML(response_variable = "Y", Distribution = "poisson", file_name = "poisson_test", Niter = 5E6,
-                     Nthin = Niter/1E3, DoBSSVS = TRUE, Pr_Zero = .5, Dt = poissonData)
+                     Nthin = 5E6/1E3, DoBSSVS = TRUE, Pr_Zero = .5, Dt = poissonData)
 
 write(normalXML, file = "normal_glm_example.xml")
 write(poissonXML, file = "poisson_glm_example.xml")

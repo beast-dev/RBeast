@@ -240,7 +240,7 @@ parseMCMC <- function(Nit, thin, runName, dist, Dim, pr_zero){
 	)
 }
 #######
-glmXML <- function(response_variable, Distribution, Dt, DoBSSVS,
+glmXML <- function(response_variable, Distribution, Dt, DoBSSVS = TRUE,
                    Niter = 2E6, Nthin = 2E3, Pr_Zero = 1/2, file_name){
   GLM.xml.string <- paste(
     parseHeader(),
