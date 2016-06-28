@@ -39,7 +39,7 @@ parseDistribution <- function(dist = c("normal", "poisson", "negativeBinomial"))
 	parmBlock <- switch(Dist,
 		normal = "\t<normalDistributionModel>\n\t\t<mean><parameter value=\"1.0\"/></mean>\n\t\t<scale><parameter id=\"LikVar\" value=\"1.0\"/></scale>\n\t</normalDistributionModel>\n" ,
 		poisson = "\t<poissonDistributionModel>\n\t\t<mean><parameter value=\"1.0\"/></mean>\n\t</poissonDistributionModel>\n",
-		negativeBinomial = "Not yet implemented"
+		negativeBinomial = "\t<negativeBinomialDistributionModel>\n\t\t<mean><parameter value=\"1.0\"/></mean>\n\t\t<alpha><parameter id=\"NB.alpha\" value=\"1.0\"/></alpha>\n\t</negativeBinomialDistributionModel>\n"
 	)
 	paste(subHeader, LinkString, parmBlock, "\t</model>\n", sep = "")
 }
@@ -107,7 +107,7 @@ OperatorsBlock <- function(ssvs, dist = c("normal", "poisson", "negativeBinomial
 	}
 	Dist <- match.arg(dist)
 	gaussian.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n"
-	nb.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"NB.Scale\"/>\n\t\t</scaleOperator>\n"
+	nb.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"NB.alpha\"/>\n\t\t</scaleOperator>\n"
 	finalOpsBlock <- switch(Dist,
 													normal = OpsBlock,
 													poisson = gsub(gaussian.ScaleOPStr, "", OpsBlock),
@@ -187,11 +187,46 @@ parseLoggers <- function(thn, fName, dist = c("normal", "poisson", "negativeBino
 \t\t<glmModel idref=\"GLM.glmModel\"/>\n
 \t\t<sumStatistic idref=\"GLM.nonZeroIndicators\"/>
 \t</log>\n"
+	NegativeBinomialLogString <-
+	  "\t<log id=\"screenLog\" logEvery=\"%i\">\n
+	\t\t<column label=\"Posterior\" dp=\"4\" width=\"12\">\n
+	\t\t\t<posterior idref=\"posterior\"/>\n
+	\t\t</column>\n
+	\t\t<column label=\"Prior\" dp=\"4\" width=\"12\">\n
+	\t\t\t<prior idref=\"prior\"/>\n
+	\t\t</column>\n
+	\t\t<column label=\"Likelihood\" dp=\"4\" width=\"12\">\n
+	\t\t\t<likelihood idref=\"likelihood\"/>\n
+	\t\t</column>\n
+	\t\t<column label=\"GLM.coefficients\" sf=\"6\" width=\"12\">\n
+	\t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</column>\n
+	\t\t<column label=\"GLM.nonZeroPredictors\" sf=\"6\" width=\"12\">\n
+	\t\t\t<sumStatistic idref=\"GLM.nonZeroIndicators\"/>\n\t\t</column>\n
+\t</log>\n
+
+\t<log id=\"fileLog\" logEvery=\"%i\" fileName=\"%s_GLM.log\" overwrite=\"false\">\n
+\t\t<posterior idref=\"posterior\"/>\n
+\t\t<prior idref=\"prior\"/>\n
+\t\t<likelihood idref=\"likelihood\"/>\n
+\t\t<sumStatistic idref=\"GLM.nonZeroIndicators\"/>\n
+\t\t<parameter idref=\"GLM.coefIndicator\"/>
+\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n
+\t\t<parameter idref=\"NB.alpha\"/>\n
+\t\t<productStatistic idref=\"GLM.coefficientsTimesIndicators\"/>\n
+\t</log>\n
+
+\t<log logEvery=\"%i\" fileName=\"%s_GLM_indicators.log\">\n
+\t\t<parameter idref=\"GLM.coefIndicator\"/>\n
+\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n
+\t\t<productStatistic idref=\"GLM.coefficientsTimesIndicators\"/>\n
+\t\t<glmModel idref=\"GLM.glmModel\"/>\n
+\t\t<sumStatistic idref=\"GLM.nonZeroIndicators\"/>
+\t</log>\n"
 	Dist <- match.arg(dist)
 	LogString <- switch(Dist,
 											normal = NormalLogString,
 											poisson = PoissonLogString,
-											negativeBinomial = "Not yet implemented"
+											negativeBinomial = NegativeBinomialLogString
 	)
 	paste(sprintf(
 		LogString,
@@ -213,12 +248,19 @@ parsePriors <- function(dist = c("normal", "poisson", "negativeBinomial"), dim, 
 \t\t<normalPrior mean=\"0\" stdev=\"2\">\n\t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</normalPrior>\n
 \t\t<binomialLikelihood>\n\t\t\t<proportion>\n\t\t\t\t<parameter value=\"%f\"/>\n\t\t\t</proportion>\n\t\t\t<trials>\n\t\t\t\t<parameter value=\"%s\"/>\n\t\t\t</trials>\n\t\t\t<counts>\n\t\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t\t</counts>\n\t\t</binomialLikelihood>\n
 	\t</prior>\n"
-
+	
+	NegativeBinomialPriorString <-
+	  "\t<prior id=\"prior\">\n
+\t\t<normalPrior mean=\"0\" stdev=\"2\">\n\t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</normalPrior>\n
+\t\t<gammaPrior shape=\"1.0\" scale=\"1.0\">\n\t\t\t<parameter idref=\"NB.alpha\" />\n\t\t</gammaPrior>\n
+\t\t<binomialLikelihood>\n\t\t\t<proportion>\n\t\t\t\t<parameter value=\"%f\"/>\n\t\t\t</proportion>\n\t\t\t<trials>\n\t\t\t\t<parameter value=\"%s\"/>\n\t\t\t</trials>\n\t\t\t<counts>\n\t\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t\t</counts>\n\t\t</binomialLikelihood>\n
+	\t</prior>\n"
+	
 	Dist <- match.arg(dist)
 	PriorString <- switch(Dist,
 												normal = NormalPriorString,
 												poisson = PoissonPriorString,
-												negativeBinomial = "Not yet implemented"
+												negativeBinomial = NegativeBinomialPriorString
 	)
 	indPars <- paste(rep(1, dim), collapse = " ")
 	inc_prob <- 1-((PrZero)^(1/dim))
