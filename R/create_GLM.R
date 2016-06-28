@@ -80,33 +80,34 @@ OperatorsBlock <- function(ssvs, dist = c("normal", "poisson", "negativeBinomial
 	if(ssvs){
 		OpsBlock <- paste(
 			"\t<operators id=\"operators\" optimizationSchedule=\"log\">\n
-\t\t<bitFlipOperator weight=\"6\" usesPriorOnSum=\"false\">\n
+\t\t<bitFlipOperator weight=\"10\" usesPriorOnSum=\"false\">\n
 \t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</bitFlipOperator>\n
-\t\t<bitMoveOperator weight=\"3\" numBitsToMove=\"1\" usesPriorOnSum=\"false\">\n
+\t\t<bitMoveOperator weight=\"40\" numBitsToMove=\"1\" usesPriorOnSum=\"false\">\n
 \t\t\t<bits>\n\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t\t</bits>\n
-\t\t</bitMoveOperator>\n\t\t<randomWalkOperator windowSize=\"0.5\" weight=\"1\">\n
+\t\t</bitMoveOperator>\n
+\t\t<randomWalkOperator windowSize=\"0.5\" weight=\"25\">\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</randomWalkOperator>\n
-\t\t<mvnOperator scaleFactor=\"1.0\" weight=\"10\" formXtXInverse=\"true\">\n
+\t\t<mvnOperator scaleFactor=\"1.0\" weight=\"25\" formXtXInverse=\"true\">\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t\t\t<varMatrix>\n
 \t\t\t\t<parameter idref=\"GLM.designMatrix\"/>\n\t\t\t\t</varMatrix>\n
 \t\t</mvnOperator>\n
-\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n
+\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"10\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n
 \t</operators>\n"
 			, collapse  = "")
 	}else{
 		OpsBlock <- paste(
 			"\t<operators id=\"operators\" optimizationSchedule=\"log\">\n
-\t\t<randomWalkOperator windowSize=\"0.5\" weight=\"1\">\n
+\t\t<randomWalkOperator windowSize=\"0.5\" weight=\"50\">\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n
-\t\t</randomWalkOperator>\n\t\t<mvnOperator scaleFactor=\"1.0\" weight=\"10\" formXtXInverse=\"true\">\n
+\t\t</randomWalkOperator>\n\t\t<mvnOperator scaleFactor=\"1.0\" weight=\"50\" formXtXInverse=\"true\">\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t\t\t<varMatrix>\n\t\t\t\t<parameter idref=\"GLM.designMatrix\"/>\n
 \t\t\t\t</varMatrix>\n\t\t</mvnOperator>\n
-\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n
+\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"10\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n
 \t</operators>\n"
 			, sep = "")
 	}
 	Dist <- match.arg(dist)
-	gaussian.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\"0.2\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n"
+	gaussian.ScaleOPStr <- "\t\t<scaleOperator scaleFactor=\"0.75\" weight=\10\">\n\t\t\t\t<parameter idref=\"LikVar\"/>\n\t\t</scaleOperator>\n"
 	finalOpsBlock <- switch(Dist,
 													normal = OpsBlock,
 													poisson = gsub(gaussian.ScaleOPStr, "", OpsBlock),
