@@ -75,7 +75,6 @@ StatsBlock <- function(){
     "\t\t<sumStatistic id=\"GLM.nonZeroIndicators\" name=\"nonZeroIndicatorCount\" elementwise=\"true\">\n
 \t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</sumStatistic>\n
 
-\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</sumStatistic>\n
 \t\t<productStatistic id=\"GLM.coefficientsTimesIndicators\" elementwise=\"false\">\n
     \t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n
