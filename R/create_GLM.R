@@ -71,9 +71,13 @@ parseGLMBlock <- function(dist, respVar, designMat){
 ## Now a series of ugly-but-functional "parsers"...
 #####
 StatsBlock <- function(){
-	paste(
-		"\t\t<sumStatistic id=\"GLM.nonZeroIndicators\" name=\"nonZeroIndicatorCount\" elementwise=\"true\">\n\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</sumStatistic>\n\t\t<productStatistic id=\"GLM.coefficientsTimesIndicators\" elementwise=\"false\">\n\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</productStatistic>\n", sep = ""
-	)
+  paste(
+    "\t\t<sumStatistic id=\"GLM.nonZeroIndicators\" name=\"nonZeroIndicatorCount\" elementwise=\"true\">\n
+		\t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</sumStatistic>\n
+    \t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</sumStatistic>\n
+		\t\t<productStatistic id=\"GLM.coefficientsTimesIndicators\" elementwise=\"false\">\n
+		\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</productStatistic>\n", sep = ""
+  )
 }
 #####
 OperatorsBlock <- function(ssvs, dist = c("normal", "poisson", "negativeBinomial")){
