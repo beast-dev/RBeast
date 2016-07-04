@@ -54,7 +54,7 @@ parseGLMBlock <- function(dist, respVar, designMat){
 	PredBlock <- paste(
 		"\t<independentVariables>\n",
 		parsePredictor(Name = "GLM.glmCoefficients", value = rep(0.1, P)),
-		paste("\t\t<indicator>\n", parsePredictor(Name = "GLM.coefIndicator" , value = rep(1, P)) , "\t\t</indicator>\n", sep = ""),
+		paste("\t\t<indicator>\n", parsePredictor(Name = "GLM.coefIndicator", value = rep(1, P)) , "\t\t</indicator>\n", sep = ""),
 		"\t\t<designMatrix id=\"GLM.designMatrix\">\n",
 	paste(Preds,  collapse = ""),
 "\t\t</designMatrix>\n\t</independentVariables>\n", sep = "")
@@ -82,14 +82,31 @@ StatsBlock <- function(){
   )
 }
 #####
+parseMask <- function(int, dim){
+  mask.ind <- rep(1, dim)
+  if(int) mask.ind[length(mask.ind)] <- 0
+  paste(
+    "\t\t<maskedParameter id=\"maskedIndicators\">\n
+\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n
+\t\t\t\t<mask>\n
+\t\t\t\t\t<parameter value=\"",
+    paste(mask.ind, collapse = " "),
+    "\"/>\n
+\t\t\t\t</mask>\n
+\t\t</maskedParameter>"
+    ,
+    sep = ""
+  )
+}
+#####
 OperatorsBlock <- function(ssvs, dist = c("normal", "poisson", "negativeBinomial")){
 	if(ssvs){
 		OpsBlock <- paste(
 			"\t<operators id=\"operators\" optimizationSchedule=\"log\">\n
 \t\t<bitFlipOperator weight=\"10\" usesPriorOnSum=\"false\">\n
-\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t</bitFlipOperator>\n
+\t\t\t<parameter idref=\"maskedIndicators\"/>\n\t\t</bitFlipOperator>\n
 \t\t<bitMoveOperator weight=\"40\" numBitsToMove=\"1\" usesPriorOnSum=\"false\">\n
-\t\t\t<bits>\n\t\t\t<parameter idref=\"GLM.coefIndicator\"/>\n\t\t\t</bits>\n
+\t\t\t<bits>\n\t\t\t<parameter idref=\"maskedIndicators\"/>\n\t\t\t</bits>\n
 \t\t</bitMoveOperator>\n
 \t\t<randomWalkOperator windowSize=\"0.5\" weight=\"25\">\n
 \t\t\t<parameter idref=\"GLM.glmCoefficients\"/>\n\t\t</randomWalkOperator>\n
@@ -239,7 +256,7 @@ parseLoggers <- function(thn, fName, dist = c("normal", "poisson", "negativeBino
 		thn, thn, fName, thn, fName))
 }
 #######
-parsePriors <- function(dist = c("normal", "poisson", "negativeBinomial"), dim, PrZero){
+parsePriors <- function(dist = c("normal", "poisson", "negativeBinomial"), dim, PrZero, Intercept){
 	### 'dim' is the number of predictors;
 	### 'PrZero' is the probability that there are zero included predictors
 	NormalPriorString <-
@@ -269,11 +286,12 @@ parsePriors <- function(dist = c("normal", "poisson", "negativeBinomial"), dim, 
 												negativeBinomial = NegativeBinomialPriorString
 	)
 	indPars <- paste(rep(1, dim), collapse = " ")
+	if(Intercept) dim <- dim-1
 	inc_prob <- 1-((PrZero)^(1/dim))
  sprintf(PriorString, inc_prob, indPars)
 }
 #######
-parseMCMC <- function(Nit, thin, runName, dist, Dim, pr_zero){
+parseMCMC <- function(Nit, thin, runName, dist, Dim, pr_zero, Int){
 	sprintf(
 "<mcmc id=\"mcmc\" chainLength=\"%i\" autoOptimize=\"true\" operatorAnalysis=\"%s_GLM.ops\">\n
 \t<posterior id=\"posterior\">\n%s\n
@@ -283,13 +301,15 @@ parseMCMC <- function(Nit, thin, runName, dist, Dim, pr_zero){
 \t</posterior>\n
 \t<operators idref=\"operators\"/>\n%s\n</mcmc>\n"
 					, Nit, runName,
-					parsePriors(dist = dist, dim = Dim, PrZero = pr_zero),
+					parsePriors(dist = dist, dim = Dim, PrZero = pr_zero, Intercept = Int),
 					parseLoggers(thn = thin, fName = runName, dist = dist)
 	)
 }
 #######
 glmXML <- function(response_variable, Distribution, Dt, DoBSSVS = TRUE,
+                   intercept = FALSE,
                    Niter = 2E6, Nthin = 2E3, Pr_Zero = 1/2, file_name){
+  if(intercept) Dt <- data.frame(Dt, intercept = rep(1, nrow(Dt)))
   GLM.xml.string <- paste(
     parseHeader(),
     TimeTag(),
@@ -297,8 +317,10 @@ glmXML <- function(response_variable, Distribution, Dt, DoBSSVS = TRUE,
     parseGLMBlock(dist = Distribution,
                   respVar = response_variable, designMat = Dt[, -1]),
     StatsBlock(),
+    parseMask(int = intercept, dim = ncol(Dt)),
     OperatorsBlock(ssvs = DoBSSVS, dist = Distribution),
-    parseMCMC(Nit = Niter, thin = Nthin, runName = file_name, Dim = ncol(Dt)-1, dist = Distribution, pr_zero = Pr_Zero),
+    parseMCMC(Nit = Niter, thin = Nthin, runName = file_name,
+              Dim = ncol(Dt)-1, dist = Distribution, pr_zero = Pr_Zero, Int = intercept),
     parseTail(),
     sep = ""
   )
