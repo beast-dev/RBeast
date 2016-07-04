@@ -93,7 +93,7 @@ parseMask <- function(int, dim){
     paste(mask.ind, collapse = " "),
     "\"/>\n
 \t\t\t\t</mask>\n
-\t\t</maskedParameter>"
+\t\t</maskedParameter>\n"
     ,
     sep = ""
   )
