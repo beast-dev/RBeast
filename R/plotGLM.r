@@ -31,7 +31,7 @@ list2df <- function(ll){ ## could be skipped with a little of extra work... TODO
 }
 #
 plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, Burnin = .2,
-                          betaind = TRUE, export = TRUE, fileName = "GLM_plot"){
+                          betaind = TRUE, export = TRUE, fileName = "GLM_plot", title = ""){
   require(ggplot2)
   require(repr)
   require(scales)
@@ -86,6 +86,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     scale_x_discrete("Predictor") +
     geom_hline(yintercept = cutoff, linetype = "dashed", colour = "black", size = 0.7) +
     geom_hline(yintercept = q, linetype = "solid", colour = "green", size = 0.2) + 
+    ggtitle(title) +
     theme_bw()
   p1 <- p1 + guides(fill = guide_legend(reverse = TRUE)) +
     theme(axis.text.y = element_blank(),
