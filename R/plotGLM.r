@@ -58,13 +58,12 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   ## 'Burnin' is the percent of the chain to be discarded as burn-in
   ## 'betaind' is a boolean specifying whether to report delta*beta
   Pars <- splitLog(Log, burninP = Burnin)
-  Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
-  SumDf <- lapply(Summaries, list2df)
   if(intercept){
     if(!ncol(Pars$Indicators)== (length(Names)+ 1)) stop("Model probably doesn't have intercept")
     Pars <- lapply(Pars, function(x) x[, -col(x)])
-    SumDf <- lapply(SumDf, function(x) x[-nrow(x), ])
   } 
+  Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
+  SumDf <- lapply(Summaries, list2df)
   npred <- length(Names)
   inclusion.probabilities <- data.frame(
     p.mean = SumDf$Indicators$mean,
@@ -113,3 +112,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     dev.off()
   }
 }
+
+test <- data.frame(read.table("~/Dropbox/Ebolavirus_Phylogeography/Location_GLM/BEAST GLM/LOGS/RE/EVD_counts_negbin_56L_GLM.log", header = TRUE))
+plotSimpleGLM(Names = paste("X_", 1:14, sep = ""),
+              Log = test, export = FALSE, intercept = TRUE)
