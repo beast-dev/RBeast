@@ -59,12 +59,12 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   ## 'betaind' is a boolean specifying whether to report delta*beta
   Pars <- splitLog(Log, burninP = Burnin)
   Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
-
+  SumDf <- lapply(Summaries, list2df)
   if(intercept){
     if(!ncol(Pars$Indicators)== (length(Names)+ 1)) stop("Model probably doesn't have intercept")
     Pars <- lapply(Pars, function(x) x[, -col(x)])
+    SumDf <- lapply(SumDf, function(x) x[-nrow(x), ])
   } 
-  SumDf <- lapply(Summaries, list2df)
   npred <- length(Names)
   inclusion.probabilities <- data.frame(
     p.mean = SumDf$Indicators$mean,
