@@ -60,7 +60,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   Pars <- splitLog(Log, burninP = Burnin)
   if(intercept){
     if(!ncol(Pars$Indicators)== (length(Names)+ 1)) stop("Model probably doesn't have intercept")
-    Pars <- lapply(Pars, function(x) x[, -col(x)])
+    Pars <- lapply(Pars, function(x) x[, -ncol(x)])
   } 
   Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
   SumDf <- lapply(Summaries, list2df)
