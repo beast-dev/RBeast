@@ -1,17 +1,13 @@
 ## Auxiliary functions to plot GLMs estimated using BEAST
 #####################################
-splitLog <- function(dt, burninP = .2, Product = TRUE){ ## get indicators and coefficients while discarding burn-in
+splitLog <- function(dt, burninP = .2){ ## get indicators and coefficients while discarding burn-in
   ## 'Product' is whether coefficients should be delta*beta (default) or just beta
   res <- vector(2, mode = "list")
   names(res) <- c("Indicators", "Coefficients")
   init <- round(.2 * nrow(dt))
   dt.b <- dt[init:nrow(dt), ]
   res[[1]] <- dt.b[, grep("coefIndicator", names(dt.b))]
-  if(Product) {
-    res[[2]] <- dt.b[, grep("GLM.coefficientsTimesIndicators", names(dt.b))]
-  }else{
-    res[[2]] <- dt.b[, grep("GLM.glmCoefficients", names(dt.b))]
-  }
+  res[[2]] <- dt.b[, grep("GLM.glmCoefficients", names(dt.b))]
   return(res)
 }
 getSummary <- function(x, alpha = .95){
@@ -30,8 +26,26 @@ list2df <- function(ll){ ## could be skipped with a little of extra work... TODO
   return(dt)
 }
 #
+getSummary <- function(x, alpha = .95){
+  return(data.frame(lwr = quantile(x, probs = (1 - alpha)/2) ,
+                    mean = mean(x),
+                    upr = quantile(x, probs = (1 + alpha)/2)
+  ))
+}
+#
+conditional_betas_BEAST <- function(betas, inds){
+  if(ncol(betas) != ncol(inds)) stop("Coefficients and indicators are not the same dimension")
+  K <- ncol(betas)
+  result <- data.frame(matrix(NA, ncol = 3 , nrow = K))
+  names(result) <- c("lwr", "mean", "upr")
+  for(k in 1:K){
+    result[k, ] <- getSummary(betas[, k][inds[, k] == 1])
+  }
+  return(result)
+}
+#
 plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, Burnin = .2,
-                          betaind = TRUE, export = TRUE, fileName = "GLM_plot", title = ""){
+                          export = TRUE, fileName = "GLM_plot", title = ""){
   require(ggplot2)
   require(repr)
   require(scales)
@@ -43,7 +57,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   ## 'intercept' is a boolean specifying whether an intercept was included in the model
   ## 'Burnin' is the percent of the chain to be discarded as burn-in
   ## 'betaind' is a boolean specifying whether to report delta*beta
-  Pars <- splitLog(Log, burninP = Burnin, Product =  betaind)
+  Pars <- splitLog(Log, burninP = Burnin)
   Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
   SumDf <- lapply(Summaries, list2df)
   if(intercept){
@@ -58,13 +72,9 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     predictor = Names
   )
   #
-  regression.coefficients <- data.frame(
-    b.mean = SumDf$Coefficients$mean,
-    SumDf$Coefficients$mean,
-    b.lwr = SumDf$Coefficients$lwr,
-    b.upr =  SumDf$Coefficients$upr,
-    predictor = Names
-  )
+  regression.coefficients <- data.frame(predictor = Names,
+                                        b = conditional_betas_BEAST(betas = Pars$Coefficients,
+                                                                    inds = Pars$Indicators))
   #
   q <- 1-((probZero)^(1/npred))
   bf <- BF
@@ -102,3 +112,9 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     dev.off()
   }
 }
+# test <- data.frame(read.table("~/Dropbox/Ebolavirus_Phylogeography/Location_GLM/BEAST GLM/LOGS/RE/EVD_counts_negbin_56L_GLM.log", header = TRUE))
+# 
+# names(test)
+# 
+# plotSimpleGLM(Names = paste("X_", 1:14, sep = ""),
+#               Log = test, export = FALSE)
