@@ -112,6 +112,3 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     dev.off()
   }
 }
-# test <- data.frame(read.table("~/Dropbox/Ebolavirus_Phylogeography/Location_GLM/BEAST GLM/LOGS/RE/EVD_counts_negbin_56L_GLM.log", header = TRUE))
-# plotSimpleGLM(Names = paste("X_", 1:14, sep = ""),
-#               Log = test, export = FALSE, intercept = TRUE)
