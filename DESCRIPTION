@@ -14,5 +14,6 @@ Imports:
 	rJava,
 	RColorBrewer
 Suggests:
-	knitr
+	knitr,
+    testthat
 VignetteBuilder: knitr
