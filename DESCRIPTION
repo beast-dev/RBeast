@@ -11,11 +11,12 @@ Description: More about what it does (maybe more than one line)
 License: What license is it under?
 LazyData: TRUE
 Imports:
-	rJava,
-	RColorBrewer
+    rJava,
+    RColorBrewer
 Suggests:
+    ape,
+    knitr,
     rmarkdown,
     testit,
-    knitr,
     testthat
 VignetteBuilder: knitr
