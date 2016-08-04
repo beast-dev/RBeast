@@ -15,6 +15,7 @@ Imports:
 	RColorBrewer
 Suggests:
     rmarkdown,
+    testit,
     knitr,
     testthat
 VignetteBuilder: knitr
