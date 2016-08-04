@@ -1,0 +1,14 @@
+language: r
+cache: packages
+
+after_success:
+  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'goodpractice::gp()'
+ 
+after_failure:
+  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'goodpractice::gp()'
+  - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00install.out
+  - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00check.log
