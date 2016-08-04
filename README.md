@@ -6,8 +6,6 @@ R tools for working with BEAST and BEAST2
  * create the `.xml` input files
  * parse the `.trees` and `.log` posterior output files
 
-For BEAST2-specific functions, use [the rbeast2 repository](https://github.com/BEAST2-Dev/rbeast2).
-
 # Instructions
 
 To install `RBeast` in `R`:
