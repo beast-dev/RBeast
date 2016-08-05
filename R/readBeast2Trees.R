@@ -21,7 +21,7 @@ readBeast2Trees <- function(
 	tmp			<- which( grepl('#NEXUS', tmp) )
 	if(length(tmp)>1)
 	{
-		cat(paste('\nFound #NEXUS headers, n=',length(tmp),'.\nDiscard all lines before last entry on line', tail(tmp,1)))
+		cat(paste('\nFound #NEXUS headers, n=',length(tmp),'.\nDiscard all lines before last entry on line', utils::tail(tmp,1)))
 		cmd		<- paste('sed -i".bak" 1,', utils::tail(tmp,1)-1,'d ', file, sep='')
 		system(cmd)
 		cmd		<- paste('sed -i".bak2" 1s/\\;// ', file, sep='')
