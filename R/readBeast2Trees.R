@@ -3,7 +3,9 @@
 #' @param opt.burnin how many phylogenies to discard, a value of zero will keep all trees
 #' @return a list of phylogenies of type 'phylo'
 #' @examples
-#'   trees_file <- system.file("extdata", "readBeast2TreesExample.trees", package = "RBeast")
+#'   trees_file <- system.file(
+#'     "extdata", "readBeast2TreesExample.trees", package = "RBeast"
+#'   )
 #'   testit::assert(file.exists(trees_file))
 #'   posterior <- readBeast2Trees(trees_file)
 #'   testit::assert(length(posterior) == 10)
