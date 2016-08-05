@@ -18,7 +18,9 @@ a list of phylogenies of type 'phylo'
 Extract a list of phylogenies from a BEAST2 posterior file
 }
 \examples{
-  trees_file <- "../inst/extdata/readBeast2TreesExample.trees"
+  trees_file <- system.file(
+    "extdata", "readBeast2TreesExample.trees", package = "RBeast"
+  )
   testit::assert(file.exists(trees_file))
   posterior <- readBeast2Trees(trees_file)
   testit::assert(length(posterior) == 10)

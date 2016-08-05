@@ -3,7 +3,7 @@
 #### functions for package
 
 readInputData<- function(file, sep){
-	inputData<-  read.csv(file, header=TRUE, stringsAsFactors=FALSE, sep=sep ,check.names=FALSE)
+	inputData<-  utils::read.csv(file, header=TRUE, stringsAsFactors=FALSE, sep=sep ,check.names=FALSE)
 	cat(paste("Have read table with",nrow(inputData),"lines and",ncol(inputData),"columns.\n"))
 	return(as.data.frame(inputData))
 }
@@ -62,7 +62,7 @@ demo <- function() {
 
 		#stacked plot, working with options
 		#myColours= brewer.pal(8,"Set1")
-    myColours= (rainbow(nDataCols, start=0.11))
+    myColours= (grDevices::rainbow(nDataCols, start=0.11))
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -74,7 +74,7 @@ demo <- function() {
 
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -87,7 +87,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		myOrder= sample(1:nDataCols, nDataCols) #random selection of data columns
 		plotStackedAreas(
 			data,
@@ -102,7 +102,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -116,7 +116,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -131,7 +131,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -148,7 +148,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		plotStackedAreas(
 			data,
 			stacked100=TRUE,
@@ -168,7 +168,7 @@ demo <- function() {
 		)
 
 		#stacked plot, working with options
-		myColours= rainbow(nDataCols, start=0.11)
+		myColours= grDevices::rainbow(nDataCols, start=0.11)
 		myColours[length(myColours)]= "white"
 		plotStackedAreas(
 			data,

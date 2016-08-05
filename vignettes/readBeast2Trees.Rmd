@@ -23,13 +23,16 @@ library(RBeast)
 Check if the example file can be found:
 
 ```{r}
-trees_file <- "../inst/extdata/readBeast2TreesExample.trees"
+trees_file <- system.file(
+	"extdata", "readBeast2TreesExample.trees", package = "RBeast"
+)
 testit::assert(file.exists(trees_file))
 ```
 
 Parse the posterior:
 
 ```{r}
+
 posterior_trees <- readBeast2Trees(trees_file)
 ```
 
@@ -52,6 +55,6 @@ We can plot these:
 
 ```{r}
 for (p in posterior_trees) {
-  plot(p)
+  graphics::plot(p)
 }
 ```

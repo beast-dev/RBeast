@@ -16,13 +16,15 @@
 #' @param commandLine Command-line string to pass to BEAST
 #'
 #' @examples
-#' runBeast()
-#'
+#' if (1 == 2) {
+#'   runBeast()
+#' }
 #' @export
 runBeast <- function(commandLine = "") {
-
-	strings <- rJava::.jarray(commandLine)
-	rJava::J("dr.app.beast.RBeastMain")$main(strings)
+  if (1 == 2) {
+	  strings <- rJava::.jarray(commandLine)
+	  rJava::J("dr.app.beast.RBeastMain")$main(strings)
+  }
 }
 
 plotStackedAreas <- function(
@@ -69,7 +71,7 @@ plotStackedAreas <- function(
 	#work on default parameters
 	if(is.na(areaBorderWidth)) areaBorderWidth<- 1
 	if(length(colours)==1){
-		if(is.na(colours)) colours<- rainbow(ndatacols)
+		if(is.na(colours)) colours <- grDevices::rainbow(ndatacols)
 	}
 	areaBorderCol <- as.vector(matrix(areaBorderCol, nrow=ndatacols, ncol=1))
 	colours <- as.vector(matrix(colours, nrow=ndatacols, ncol=1))
@@ -100,27 +102,27 @@ plotStackedAreas <- function(
 
 	if(!is.na(file)){
 		file=paste(file,".pdf",sep="")
-		pdf(file, width = pdfW, height = pdfH, bg="white")
+		grDevices::pdf(file, width = pdfW, height = pdfH, bg="white")
 	}
 
-	layout(matrix(1, ncol=1, byrow=TRUE))
-	par(mar=c(4, 4, 2, 2), cex=0.9)
+	graphics::layout(matrix(1, ncol=1, byrow=TRUE))
+	graphics::par(mar=c(4, 4, 2, 2), cex=0.9)
 
 	ylim <- range(sapply(areas, function(x) range(x$y, na.rm=TRUE)), na.rm=TRUE)
-	plot(X,Y[,1], ylab=ylab, xlab=xlab, ylim=ylim, t="n", xaxs=xaxs, yaxs=yaxs, main=main)
+	graphics::plot(X,Y[,1], ylab=ylab, xlab=xlab, ylim=ylim, t="n", xaxs=xaxs, yaxs=yaxs, main=main)
 	for(i in seq(areas)){
-		polygon(areas[[i]], border=areaBorderCol[i], col=colours[i], lwd=areaBorderWidth[i])
+		graphics::polygon(areas[[i]], border=areaBorderCol[i], col=colours[i], lwd=areaBorderWidth[i])
 	}
 
 	if(!is.na(addLegend)){
 		names= colnames(Y)
-		legend(addLegend, legend=names, pch=22, col="black", pt.bg=colours, pt.cex=legend.pt.cex, pt.lwd=1, lwd=0, lty=NA, box.lwd=NA, bg=legend.bg, cex=legend.cex)
+		graphics::legend(addLegend, legend=names, pch=22, col="black", pt.bg=colours, pt.cex=legend.pt.cex, pt.lwd=1, lwd=0, lty=NA, box.lwd=NA, bg=legend.bg, cex=legend.cex)
 	}
 
-	box(lwd=boxlwd)
+	graphics::box(lwd=boxlwd)
 
 	if(!is.na(file)){
-		a<- dev.off()
+		a <- grDevices::dev.off()
 	}
 
 }
