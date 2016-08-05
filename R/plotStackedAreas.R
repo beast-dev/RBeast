@@ -100,7 +100,7 @@ plotStackedAreas <- function(
 
 	if(!is.na(file)){
 		file=paste(file,".pdf",sep="")
-		pdf(file, w=pdfW, h= pdfH, bg="white")
+		pdf(file, width = pdfW, height = pdfH, bg="white")
 	}
 
 	layout(matrix(1, ncol=1, byrow=TRUE))

@@ -1,17 +1,19 @@
 Package: RBeast
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Create BEAST and BEAST2 input files and parse their output
 Version: 0.1
 Date: 2015-08-10
 Author: Nuno Faria <nmrfaria@gmail.com> [aut, cre],
     Marc A. Suchard <msuchard@ucla.edu> [aut, cre]
 Maintainer: Marc A. Suchard <msuchard@ucla.edu>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Description:
+  BEAST and BEAST2 are tools for Bayesian phylogenetic inference.
+  This package allows to create input parameter files from R,
+  and to parse their output files.
+License: None yet
 LazyData: TRUE
 Imports:
-    rJava,
-    RColorBrewer
+    rJava
 Suggests:
     ape,
     knitr,
