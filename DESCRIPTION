@@ -10,7 +10,7 @@ Description:
   BEAST and BEAST2 are tools for Bayesian phylogenetic inference.
   This package allows to create input parameter files from R,
   and to parse their output files.
-License: None yet
+License: file LICENSE
 LazyData: TRUE
 Imports:
     rJava
