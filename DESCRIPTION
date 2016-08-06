@@ -2,7 +2,6 @@ Package: RBeast
 Type: Package
 Title: Create BEAST and BEAST2 input files and parse their output
 Version: 0.1
-Date: 2015-08-10
 Author: Nuno Faria <nmrfaria@gmail.com> [aut, cre],
     Marc A. Suchard <msuchard@ucla.edu> [aut, cre]
 Maintainer: Marc A. Suchard <msuchard@ucla.edu>
@@ -22,3 +21,5 @@ Suggests:
     testthat
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+URL: https://github.com/beast-dev/RBeast
+BugReports: https://github.com/beast-dev/RBeast/issues
