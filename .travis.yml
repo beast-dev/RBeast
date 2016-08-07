@@ -5,6 +5,7 @@ r_github_packages:
   - jimhester/covr
   - jimhester/lintr
   - MangoTheCat/goodpractice
+  - olli0601/rBEAST
 
 after_success:
   - Rscript -e 'lintr::lint_package()'

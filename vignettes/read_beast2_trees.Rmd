@@ -51,10 +51,21 @@ Every state is a phylogeny:
 testit::assert(class(posterior_trees[[1]]) == "phylo")
 ```
 
-We can plot these:
+We can plot these all seperately:
 
 ```{r}
 for (p in posterior_trees) {
   graphics::plot(p)
 }
+```
+
+Or we plot all at once:
+
+```{r fig.width = 7, fig.height = 7}
+class(posterior_trees) <- "multiPhylo"
+phangorn::densiTree(
+  posterior_trees, 
+  type = "cladogram", 
+  alpha = 1
+)
 ```
