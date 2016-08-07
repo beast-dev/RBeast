@@ -24,7 +24,7 @@ Check if the example file can be found:
 
 ```{r}
 trees_file <- system.file(
-	"extdata", "readBeast2TreesExample.trees", package = "RBeast"
+	"extdata", "read_beast2_trees_example.trees", package = "RBeast"
 )
 testit::assert(file.exists(trees_file))
 ```
@@ -33,7 +33,7 @@ Parse the posterior:
 
 ```{r}
 
-posterior_trees <- readBeast2Trees(trees_file)
+posterior_trees <- read_beast2_trees(trees_file)
 ```
 
 Investigating the posterior:

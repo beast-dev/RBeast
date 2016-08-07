@@ -2,11 +2,14 @@
 library(RBeast)
 
 ## ------------------------------------------------------------------------
-trees_file <- "../inst/extdata/readBeast2TreesExample.trees"
+trees_file <- system.file(
+	"extdata", "read_beast2_trees_example.trees", package = "RBeast"
+)
 testit::assert(file.exists(trees_file))
 
 ## ------------------------------------------------------------------------
-posterior_trees <- readBeast2Trees(trees_file)
+
+posterior_trees <- read_beast2_trees(trees_file)
 
 ## ------------------------------------------------------------------------
 names(posterior_trees)
@@ -17,6 +20,6 @@ testit::assert(class(posterior_trees[[1]]) == "phylo")
 
 ## ------------------------------------------------------------------------
 for (p in posterior_trees) {
-  plot(p)
+  graphics::plot(p)
 }
 

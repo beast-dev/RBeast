@@ -12,13 +12,19 @@ Description:
 License: file LICENSE
 LazyData: TRUE
 Imports:
-    rJava
+  rJava
 Suggests:
-    ape,
-    knitr,
-    rmarkdown,
-    testit,
-    testthat
+  ape,
+  knitr,
+  rmarkdown,
+  testit,
+  testthat
+Remotes:
+  jimhester/covr,
+  jimhester/lintr,
+  olli0601/rBEAST,
+  richelbilderbeek/beastscriptr,
+  MangoTheCat/goodpractice
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 URL: https://github.com/beast-dev/RBeast
