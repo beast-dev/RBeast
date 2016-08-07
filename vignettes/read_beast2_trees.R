@@ -23,3 +23,11 @@ for (p in posterior_trees) {
   graphics::plot(p)
 }
 
+## ----fig.width = 7, fig.height = 7---------------------------------------
+class(posterior_trees) <- "multiPhylo"
+phangorn::densiTree(
+  posterior_trees, 
+  type = "cladogram", 
+  alpha = 1
+)
+
