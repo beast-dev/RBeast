@@ -16,6 +16,7 @@ Imports:
 Suggests:
   ape,
   knitr,
+  phangorn,
   rmarkdown,
   testit,
   testthat
