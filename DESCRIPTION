@@ -12,6 +12,7 @@ Description:
 License: file LICENSE
 LazyData: TRUE
 Imports:
+  rBEAST,
   rJava
 Suggests:
   ape,

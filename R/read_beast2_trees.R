@@ -6,9 +6,9 @@
 #'     "extdata", "read_beast2_trees_example.trees", package = "RBeast"
 #'   )
 #'   testit::assert(file.exists(trees_file))
-#'   #posterior <- read_beast2_trees(trees_file)
-#'   #testit::assert(length(posterior) == 10)
-#'   #testit::assert(class(posterior[[1]]) == "phylo")
+#'   posterior <- read_beast2_trees(trees_file)
+#'   testit::assert(length(posterior) == 10)
+#'   testit::assert(class(posterior[[1]]) == "phylo")
 #' @export
 #' @author Richel Bilderbeek
 read_beast2_trees <- function(filename)
