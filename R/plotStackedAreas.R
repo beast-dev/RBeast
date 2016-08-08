@@ -16,15 +16,17 @@
 #' @param commandLine Command-line string to pass to BEAST
 #'
 #' @examples
-#' if (1 == 2) {
 #'   runBeast()
-#' }
 #' @export
 runBeast <- function(commandLine = "") {
-  if (1 == 2) {
-    strings <- rJava::.jarray(commandLine)
-    rJava::J("dr.app.beast.RBeastMain")$main(strings)
-  }
+  strings <- rJava::.jarray(commandLine)
+
+  tryCatch(
+    rJava::J("dr.app.beast.RBeastMain")$main(strings),
+    error = function(msg) {
+      print(paste0("runBeast: ", msg))
+    }
+  )
 }
 
 plotStackedAreas <- function(

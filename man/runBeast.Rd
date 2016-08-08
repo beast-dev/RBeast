@@ -16,8 +16,6 @@ runBeast(commandLine = "")
 This function executes BEAST through rJava.
 }
 \examples{
-if (1 == 2) {
   runBeast()
-}
 }
 
