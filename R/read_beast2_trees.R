@@ -11,8 +11,7 @@
 #'   testit::assert(class(posterior[[1]]) == "phylo")
 #' @export
 #' @author Richel Bilderbeek
-read_beast2_trees <- function(filename)
-{
+read_beast2_trees <- function(filename) {
   if (!file.exists(filename)) {
     stop("read_beast2_trees: file not found")
   }
