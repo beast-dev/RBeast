@@ -13,7 +13,7 @@
 #' @author Richel Bilderbeek
 read_beast2_trees <- function(filename) {
   if (!file.exists(filename)) {
-    stop("read_beast2_trees: file not found")
+    stop("file not found")
   }
   return (rBEAST::beast2out.read.trees(filename))
 }

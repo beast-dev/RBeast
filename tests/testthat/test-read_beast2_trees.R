@@ -13,6 +13,6 @@ test_that("read_beast2_trees: use", {
 test_that("read_beast2_trees: abuse", {
   expect_error(
     read_beast2_trees("inva.lid"),
-    "read_beast2_trees: file not found"
+    "file not found"
   )
 })
