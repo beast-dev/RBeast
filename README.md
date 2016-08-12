@@ -1,7 +1,7 @@
 # RBeast
 
-[![Build Status](https://travis-ci.org/beast-dev/RBeast.svg?branch=master)](https://travis-ci.org/beast-dev/RBeast)
-[![codecov.io](https://codecov.io/github/beast-dev/RBeast/coverage.svg?branch=master)](https://codecov.io/github/beast-dev/RBeast?branch=master)
+[![Build Status](https://travis-ci.org/maxbiostat/RBeast.svg?branch=master)](https://travis-ci.org/maxbiostat/RBeast)
+[![codecov.io](https://codecov.io/github/maxbiostat/RBeast/coverage.svg?branch=master)](https://codecov.io/github/maxbiostat/RBeast?branch=master)
 
 R tools for working with BEAST and BEAST2
  * create the `.xml` input files
