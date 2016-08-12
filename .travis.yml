@@ -17,7 +17,7 @@ after_failure:
   - Rscript -e 'covr::codecov()'
   - Rscript -e 'goodpractice::gp()'
   - cat /home/travis/build/maxbiostat/RBeast/..Rcheck/00install.out
-  - cat /home/travis/build/mabiostat/RBeast/..Rcheck/00check.log
+  - cat /home/travis/build/maxbiostat/RBeast/..Rcheck/00check.log
 
 env:
   - LINTR_COMMENT_BOT=true
