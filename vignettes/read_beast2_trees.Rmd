@@ -1,0 +1,71 @@
+---
+title: "Reading a BEAST posterior"
+author: "Richel Bilderbeek"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reading a BEAST posterior}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This vignette shows how to parse a BEAST2 posterior file using `RBeast`.
+
+Load the `RBeast` package:
+
+```{r message = FALSE}
+library(RBeast)
+```
+
+
+## Extracting the phylogenies from the .trees file
+
+Check if the example file can be found:
+
+```{r}
+trees_file <- system.file(
+	"extdata", "read_beast2_trees_example.trees", package = "RBeast"
+)
+testit::assert(file.exists(trees_file))
+```
+
+Parse the posterior:
+
+```{r}
+
+posterior_trees <- read_beast2_trees(trees_file)
+```
+
+Investigating the posterior:
+
+```{r}
+names(posterior_trees)
+testit::assert(length(posterior_trees) == 10)
+```
+
+We can see that the posterior has multiple states.
+
+Every state is a phylogeny:
+
+```{r}
+testit::assert(class(posterior_trees[[1]]) == "phylo")
+```
+
+We can plot these all seperately:
+
+```{r}
+for (p in posterior_trees) {
+  graphics::plot(p)
+}
+```
+
+Or we plot all at once:
+
+```{r fig.width = 7, fig.height = 7}
+class(posterior_trees) <- "multiPhylo"
+phangorn::densiTree(
+  posterior_trees, 
+  type = "cladogram", 
+  alpha = 1
+)
+```

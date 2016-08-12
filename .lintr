@@ -1,0 +1,6 @@
+linters: with_defaults(
+  camel_case_linter = NULL,
+  snake_case_linter = NULL,
+  commented_code_linter = NULL,
+  NULL)
+exclusions: list("R/newCode.R", "R/plotStackedAreas.R")

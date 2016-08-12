@@ -1,0 +1,24 @@
+language: r
+cache: packages
+
+r_github_packages:
+  - jimhester/covr
+  - jimhester/lintr
+  - MangoTheCat/goodpractice
+  - olli0601/rBEAST
+
+after_success:
+  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'goodpractice::gp()'
+ 
+after_failure:
+  - Rscript -e 'lintr::lint_package()'
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'goodpractice::gp()'
+  - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00install.out
+  - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00check.log
+
+env:
+  - LINTR_COMMENT_BOT=false
+  
