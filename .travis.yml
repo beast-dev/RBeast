@@ -20,5 +20,6 @@ after_failure:
   - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00check.log
 
 env:
-  - LINTR_COMMENT_BOT=false
-  
+  - LINTR_COMMENT_BOT=true
+codecov:
+  token: 649bb111-07fd-4000-adb4-8a7739968ebe
