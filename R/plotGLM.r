@@ -11,7 +11,9 @@ splitLog <- function(dt, burninP = .2){ ## get indicators and coefficients while
 getSummary <- function(x, alpha = .95){
   return(
     data.frame(lwr = as.numeric(quantile(x, probs = (1 - alpha)/2 )),
-         mean = mean(x), upr = as.numeric(quantile(x, probs = (1 + alpha)/2)), row.names = "")
+               mean = mean(x),
+               upr = as.numeric(quantile(x, probs = (1 + alpha)/2)),
+               row.names = "")
   )
 }
 #
