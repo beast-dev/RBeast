@@ -1,5 +1,3 @@
-## Auxiliary functions to plot GLMs estimated using BEAST
-#####################################
 splitLog <- function(dt, burninP = .2){ ## get indicators and coefficients while discarding burn-in
   ## 'Product' is whether coefficients should be delta*beta (default) or just beta
   res <- vector(2, mode = "list")
@@ -61,7 +59,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   if(intercept){
     if(!ncol(Pars$Indicators)== (length(Names)+ 1)) stop("Model probably doesn't have intercept")
     Pars <- lapply(Pars, function(x) x[, -ncol(x)])
-  } 
+  }
   Summaries <- lapply(Pars, function(d) apply(d, 2, getSummary))
   SumDf <- lapply(Summaries, list2df)
   npred <- length(Names)
@@ -81,13 +79,13 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
   cutoff <- (q*bf)/(q*(bf-1) + 1)
   #
   p0 <- ggplot(regression.coefficients, aes(x = predictor , y = b.mean))+
-    geom_pointrange(aes(ymin = b.lwr, ymax = b.upr), position = position_dodge(0.5)) + 
+    geom_pointrange(aes(ymin = b.lwr, ymax = b.upr), position = position_dodge(0.5)) +
     coord_flip() +
     scale_y_continuous("Coefficient", expand = c(0, 0)) +
     scale_x_discrete("Predictor") +
-    geom_hline(yintercept = 0, linetype = "solid", color = "black", size = 0.5) + 
+    geom_hline(yintercept = 0, linetype = "solid", color = "black", size = 0.5) +
     theme_bw()
-  
+
   p0 <- p0 +  theme(legend.position = "none")
   p1 <- ggplot(inclusion.probabilities, aes(x = predictor, y = p.mean))+
     geom_bar(stat = "identity") +
@@ -95,7 +93,7 @@ plotSimpleGLM <- function(Names, Log, probZero = .5, BF = 3, intercept = FALSE, 
     scale_y_continuous("Inclusion probability", expand = c(0, 0)) +
     scale_x_discrete("Predictor") +
     geom_hline(yintercept = cutoff, linetype = "dashed", colour = "black", size = 0.7) +
-    geom_hline(yintercept = q, linetype = "solid", colour = "green", size = 0.2) + 
+    geom_hline(yintercept = q, linetype = "solid", colour = "green", size = 0.2) +
     ggtitle(title) +
     theme_bw()
   p1 <- p1 + guides(fill = guide_legend(reverse = TRUE)) +
