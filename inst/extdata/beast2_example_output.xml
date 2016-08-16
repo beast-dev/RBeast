@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><beast beautitemplate='Standard' beautistatus='' namespace="beast.core:beast.evolution.alignment:beast.evolution.tree.coalescent:beast.core.util:beast.evolution.nuc:beast.evolution.operators:beast.evolution.sitemodel:beast.evolution.substitutionmodel:beast.evolution.likelihood" version="2.0">
+
+
+    <data
+id="test-alignment_to_beast_posterior"
+name="alignment">
+                    <sequence id="seq_t1" taxon="t1" totalcount="4" value="TAGGCCCTTG"/>
+                    <sequence id="seq_t5" taxon="t5" totalcount="4" value="AGCGCTTTTG"/>
+                    <sequence id="seq_t3" taxon="t3" totalcount="4" value="CGGGGGCTCC"/>
+                    <sequence id="seq_t4" taxon="t4" totalcount="4" value="CGGGCGCTCC"/>
+                    <sequence id="seq_t2" taxon="t2" totalcount="4" value="CTATACCCCG"/>
+                </data>
+
+
+    
+
+
+    
+
+
+    
+<map name="Uniform">beast.math.distributions.Uniform</map>
+<map name="Exponential">beast.math.distributions.Exponential</map>
+<map name="LogNormal">beast.math.distributions.LogNormalDistributionModel</map>
+<map name="Normal">beast.math.distributions.Normal</map>
+<map name="Beta">beast.math.distributions.Beta</map>
+<map name="Gamma">beast.math.distributions.Gamma</map>
+<map name="LaplaceDistribution">beast.math.distributions.LaplaceDistribution</map>
+<map name="prior">beast.math.distributions.Prior</map>
+<map name="InverseGamma">beast.math.distributions.InverseGamma</map>
+<map name="OneOnX">beast.math.distributions.OneOnX</map>
+
+
+<run id="mcmc" spec="MCMC" chainLength="10000">
+    <state id="state" storeEvery="5000">
+        <tree id="Tree.t:test-alignment_to_beast_posterior" name="stateNode">
+            <taxonset id="TaxonSet.test-alignment_to_beast_posterior" spec="TaxonSet">
+                <alignment idref="test-alignment_to_beast_posterior"/>
+            </taxonset>
+        </tree>
+        <parameter id="birthRate2.t:test-alignment_to_beast_posterior" lower="0.0" name="stateNode" upper="10000.0">1.0</parameter>
+        <parameter id="relativeDeathRate2.t:test-alignment_to_beast_posterior" lower="0.0" name="stateNode" upper="1.0">0.5</parameter>
+    </state>
+
+    <init id="RandomTree.t:test-alignment_to_beast_posterior" spec="beast.evolution.tree.RandomTree" estimate="false" initial="@Tree.t:test-alignment_to_beast_posterior" taxa="@test-alignment_to_beast_posterior">
+        <populationModel id="ConstantPopulation0.t:test-alignment_to_beast_posterior" spec="ConstantPopulation">
+            <parameter id="randomPopSize.t:test-alignment_to_beast_posterior" name="popSize">1.0</parameter>
+        </populationModel>
+    </init>
+
+    <distribution id="posterior" spec="util.CompoundDistribution">
+        <distribution id="prior" spec="util.CompoundDistribution">
+            <distribution id="BirthDeath.t:test-alignment_to_beast_posterior" spec="beast.evolution.speciation.BirthDeathGernhard08Model" birthDiffRate="@birthRate2.t:test-alignment_to_beast_posterior" relativeDeathRate="@relativeDeathRate2.t:test-alignment_to_beast_posterior" tree="@Tree.t:test-alignment_to_beast_posterior"/>
+            <prior id="BirthRatePrior.t:test-alignment_to_beast_posterior" name="distribution" x="@birthRate2.t:test-alignment_to_beast_posterior">
+                <Uniform id="Uniform.0" name="distr" upper="1000.0"/>
+            </prior>
+            <prior id="DeathRatePrior.t:test-alignment_to_beast_posterior" name="distribution" x="@relativeDeathRate2.t:test-alignment_to_beast_posterior">
+                <Uniform id="Uniform.01" name="distr"/>
+            </prior>
+        </distribution>
+        <distribution id="likelihood" spec="util.CompoundDistribution">
+            <distribution id="treeLikelihood.test-alignment_to_beast_posterior" spec="TreeLikelihood" data="@test-alignment_to_beast_posterior" tree="@Tree.t:test-alignment_to_beast_posterior">
+                <siteModel id="SiteModel.s:test-alignment_to_beast_posterior" spec="SiteModel">
+                    <parameter id="mutationRate.s:test-alignment_to_beast_posterior" estimate="false" name="mutationRate">1.0</parameter>
+                    <parameter id="gammaShape.s:test-alignment_to_beast_posterior" estimate="false" name="shape">1.0</parameter>
+                    <parameter id="proportionInvariant.s:test-alignment_to_beast_posterior" estimate="false" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+                    <substModel id="JC69.s:test-alignment_to_beast_posterior" spec="JukesCantor"/>
+                </siteModel>
+                <branchRateModel id="StrictClock.c:test-alignment_to_beast_posterior" spec="beast.evolution.branchratemodel.StrictClockModel">
+                    <parameter id="clockRate.c:test-alignment_to_beast_posterior" estimate="false" name="clock.rate">1.0</parameter>
+                </branchRateModel>
+            </distribution>
+        </distribution>
+    </distribution>
+
+    <operator id="treeScaler.t:test-alignment_to_beast_posterior" spec="ScaleOperator" scaleFactor="0.5" tree="@Tree.t:test-alignment_to_beast_posterior" weight="3.0"/>
+
+    <operator id="treeRootScaler.t:test-alignment_to_beast_posterior" spec="ScaleOperator" rootOnly="true" scaleFactor="0.5" tree="@Tree.t:test-alignment_to_beast_posterior" weight="3.0"/>
+
+    <operator id="UniformOperator.t:test-alignment_to_beast_posterior" spec="Uniform" tree="@Tree.t:test-alignment_to_beast_posterior" weight="30.0"/>
+
+    <operator id="SubtreeSlide.t:test-alignment_to_beast_posterior" spec="SubtreeSlide" tree="@Tree.t:test-alignment_to_beast_posterior" weight="15.0"/>
+
+    <operator id="narrow.t:test-alignment_to_beast_posterior" spec="Exchange" tree="@Tree.t:test-alignment_to_beast_posterior" weight="15.0"/>
+
+    <operator id="wide.t:test-alignment_to_beast_posterior" spec="Exchange" isNarrow="false" tree="@Tree.t:test-alignment_to_beast_posterior" weight="3.0"/>
+
+    <operator id="WilsonBalding.t:test-alignment_to_beast_posterior" spec="WilsonBalding" tree="@Tree.t:test-alignment_to_beast_posterior" weight="3.0"/>
+
+    <operator id="BirthRateScaler.t:test-alignment_to_beast_posterior" spec="ScaleOperator" parameter="@birthRate2.t:test-alignment_to_beast_posterior" scaleFactor="0.75" weight="3.0"/>
+
+    <operator id="DeathRateScaler.t:test-alignment_to_beast_posterior" spec="ScaleOperator" parameter="@relativeDeathRate2.t:test-alignment_to_beast_posterior" scaleFactor="0.75" weight="3.0"/>
+
+    <logger id="tracelog" fileName="test-alignment_to_beast_posterior.log" logEvery="1000" model="@posterior" sanitiseHeaders="true" sort="smart">
+        <log idref="posterior"/>
+        <log idref="likelihood"/>
+        <log idref="prior"/>
+        <log idref="treeLikelihood.test-alignment_to_beast_posterior"/>
+        <log id="TreeHeight.t:test-alignment_to_beast_posterior" spec="beast.evolution.tree.TreeHeightLogger" tree="@Tree.t:test-alignment_to_beast_posterior"/>
+        <log idref="BirthDeath.t:test-alignment_to_beast_posterior"/>
+        <log idref="birthRate2.t:test-alignment_to_beast_posterior"/>
+        <log idref="relativeDeathRate2.t:test-alignment_to_beast_posterior"/>
+    </logger>
+
+    <logger id="screenlog" logEvery="1000">
+        <log idref="posterior"/>
+        <log id="ESS.0" spec="util.ESS"  arg="@posterior"/>
+
+        <log idref="likelihood"/>
+        <log idref="prior"/>
+    </logger>
+
+    <logger id="treelog.t:test-alignment_to_beast_posterior" fileName="$(tree).trees" logEvery="1000" mode="tree">
+        <log id="TreeWithMetaDataLogger.t:test-alignment_to_beast_posterior" spec="beast.evolution.tree.TreeWithMetaDataLogger" tree="@Tree.t:test-alignment_to_beast_posterior"/>
+    </logger>
+
+</run>
+
+</beast>

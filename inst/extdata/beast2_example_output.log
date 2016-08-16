@@ -1,0 +1,47 @@
+#
+#model:
+#
+#<?xml version="1.0" encoding="UTF-8" standalone="no"?><input id="posterior" spec="beast.core.util.CompoundDistribution">
+#    <distribution id="prior" spec="beast.core.util.CompoundDistribution">
+#        <distribution id="BirthDeath.t:test-alignment_to_beast_posterior" spec="beast.evolution.speciation.BirthDeathGernhard08Model">
+#            <parameter id="relativeDeathRate2.t:test-alignment_to_beast_posterior" lower="0.0" name="relativeDeathRate" upper="1.0">0.5</parameter>
+#            <parameter id="birthRate2.t:test-alignment_to_beast_posterior" lower="0.0" name="birthDiffRate" upper="10000.0">1.0</parameter>
+#            <tree id="Tree.t:test-alignment_to_beast_posterior">
+#                <taxonset id="TaxonSet.test-alignment_to_beast_posterior" spec="beast.evolution.alignment.TaxonSet">
+#                </taxonset>
+#            </tree>
+#        </distribution>
+#        <prior id="BirthRatePrior.t:test-alignment_to_beast_posterior" name="distribution" x="@birthRate2.t:test-alignment_to_beast_posterior">
+#            <Uniform id="Uniform.0" name="distr" upper="1000.0"/>
+#        </prior>
+#        <prior id="DeathRatePrior.t:test-alignment_to_beast_posterior" name="distribution" x="@relativeDeathRate2.t:test-alignment_to_beast_posterior">
+#            <Uniform id="Uniform.01" name="distr"/>
+#        </prior>
+#    </distribution>
+#    <distribution id="likelihood" spec="beast.core.util.CompoundDistribution">
+#        <distribution data="@test-alignment_to_beast_posterior" id="treeLikelihood.test-alignment_to_beast_posterior" spec="beast.evolution.likelihood.TreeLikelihood" tree="@Tree.t:test-alignment_to_beast_posterior">
+#            <siteModel id="SiteModel.s:test-alignment_to_beast_posterior" spec="beast.evolution.sitemodel.SiteModel">
+#                <parameter estimate="false" id="mutationRate.s:test-alignment_to_beast_posterior" name="mutationRate">1.0</parameter>
+#                <parameter estimate="false" id="gammaShape.s:test-alignment_to_beast_posterior" name="shape">1.0</parameter>
+#                <parameter estimate="false" id="proportionInvariant.s:test-alignment_to_beast_posterior" lower="0.0" name="proportionInvariant" upper="1.0">0.0</parameter>
+#                <substModel id="JC69.s:test-alignment_to_beast_posterior" spec="beast.evolution.substitutionmodel.JukesCantor"/>
+#            </siteModel>
+#            <branchRateModel id="StrictClock.c:test-alignment_to_beast_posterior" spec="beast.evolution.branchratemodel.StrictClockModel">
+#                <parameter estimate="false" id="clockRate.c:test-alignment_to_beast_posterior" name="clock.rate">1.0</parameter>
+#            </branchRateModel>
+#        </distribution>
+#    </distribution>
+#</input>
+#
+Sample	posterior	likelihood	prior	treeLikelihood	TreeHeight	BirthDeath	birthRate2	relativeDeathRate2	
+0	-76.40152367865795	-66.56126085440302	-9.840262824254928	-66.56126085440302	0.6383792476140522	-2.9325075452727924	1.0	0.5	
+1000	-68.68522943015078	-60.11852833278908	-8.5667010973617	-60.11852833278908	0.7003758494767539	-1.658945818379563	2.804120785949103	0.49527653913985065	
+2000	-70.06839047661876	-58.93807154054928	-11.130318936069484	-58.93807154054928	1.408518197972766	-4.222563657087347	0.7901276334052576	0.3674312994250379	
+3000	-69.03989901570205	-58.908337646526604	-10.131561369175442	-58.908337646526604	0.9220334275239339	-3.2238060901933046	1.8637475780382835	0.24962239003989578	
+4000	-74.15268200979204	-59.98231670859387	-14.17036530119818	-59.98231670859387	1.815995819500523	-7.262610022216043	1.7823070405053383	0.3519154520550704	
+5000	-71.17163347186911	-61.56657103682397	-9.605062435045134	-61.56657103682397	0.7408031787176825	-2.697307156062997	1.784950391046604	0.7085961206445538	
+6000	-69.64175919436143	-58.7371283874309	-10.904630806930529	-58.7371283874309	1.0967406331819989	-3.996875527948392	1.118246617131637	0.37026052508174184	
+7000	-71.9254632299824	-61.43600200867863	-10.489461221303767	-61.43600200867863	1.008807793060718	-3.581705942321631	1.2610805655688475	0.40085741953348314	
+8000	-69.59440660430789	-58.893813736024974	-10.700592868282925	-58.893813736024974	0.8291478974191432	-3.7928375893007873	0.3909075824291657	0.5845426497411835	
+9000	-69.69113214841606	-62.40903887903621	-7.2820932693798435	-62.40903887903621	0.4529636701249372	-0.37433799039770677	1.1123237661541558	0.6983194230410139	
+10000	-71.86883594126418	-60.73520027244354	-11.133635668820638	-60.73520027244354	0.7693617408342179	-4.2258803898385	1.5626755883603614	0.7107459018616334	
