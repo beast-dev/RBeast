@@ -3,6 +3,7 @@
 export(calc_act)
 export(calc_ess)
 export(calc_esses)
+export(is_posterior)
 export(is_trees_posterior)
 export(parse_beast_log)
 export(parse_beast_posterior)
