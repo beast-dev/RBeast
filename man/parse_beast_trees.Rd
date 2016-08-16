@@ -21,8 +21,11 @@ The function is not yet able to respond
   https://github.com/richelbilderbeek/Cer2016/issues/118
 }
 \examples{
+  trees_filename <- system.file(
+    "extdata", "beast2_example_output.trees", package = "RBeast"
+  )
   posterior <- parse_beast_trees(
-    find_path("beast2_example_output.trees")
+    filename = trees_filename
   )
   testit::assert(is_trees_posterior(posterior))
 }

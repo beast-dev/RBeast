@@ -18,9 +18,15 @@ a Cer2016 posterior
 Parses BEAST2 output files to a Cer2016 posterior
 }
 \examples{
+  trees_filename <- system.file(
+   "extdata", "beast2_example_output.trees", package = "RBeast"
+  )
+  log_filename <- system.file(
+   "extdata", "beast2_example_output.log", package = "RBeast"
+  )
   posterior <- parse_beast_posterior(
-    trees_filename = find_path("beast2_example_output.trees"),
-    log_filename = find_path("beast2_example_output.log")
+    trees_filename = trees_filename,
+    log_filename = log_filename
   )
   testit::assert(is_posterior(posterior))
 }

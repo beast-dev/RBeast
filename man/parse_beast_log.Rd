@@ -16,9 +16,10 @@ data frame with all the parameter estimates
 Parses a BEAST2 .log output file
 }
 \examples{
-  estimates <- parse_beast_log(
-    find_path("beast2_example_output.log")
+  log_filename <- system.file(
+    "extdata", "beast2_example_output.log", package = "RBeast"
   )
+  estimates <- parse_beast_log(filename = log_filename)
   expected_names <- c(
     "Sample", "posterior", "likelihood",
     "prior", "treeLikelihood", "TreeHeight",
