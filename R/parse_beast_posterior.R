@@ -33,6 +33,6 @@ parse_beast_posterior <- function(trees_filename, log_filename) {
     trees = posterior_trees,
     estimates = posterior_estimates
   )
-  testit::assert(is_posterior(posterior))
+  testit::assert(RBeast::is_posterior(posterior))
   posterior
 }

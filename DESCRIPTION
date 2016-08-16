@@ -16,10 +16,13 @@ Imports:
   rJava
 Suggests:
   ape,
+  coda,
+  ggplot2,
   knitr,
   phangorn,
   OutbreakTools,
   geiger,
+  reshape2,
   rmarkdown,
   testit,
   testthat
