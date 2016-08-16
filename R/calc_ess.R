@@ -11,7 +11,7 @@ calc_ess <- function(trace, sample_interval) {
   if (sample_interval < 1) {
     stop("sample interval must be at least one")
   }
-  act <- Cer2016::calc_act(
+  act <- RBeast::calc_act(
     trace = trace,
     sample_interval = sample_interval
   )

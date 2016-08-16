@@ -12,13 +12,17 @@ vignette: >
 
 
 ```{r}
-library(Cer2016)
+library(RBeast)
 library(coda)
 ```
 
 ```{r}
+trees_file <- system.file(
+  "extdata", "beast2_example_output.log", package = "RBeast"
+)
+testit::assert(file.exists(trees_file))
 estimates <- parse_beast_log(
-  filename = find_path("beast2_example_output.log")
+  filename = trees_file
 )
 ```
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/parse_beast_posterior.R
 \name{parse_beast_posterior}
 \alias{parse_beast_posterior}
-\title{Parses BEAST2 output files to a Cer2016 posterior}
+\title{Parses BEAST2 output files to a posterior}
 \usage{
 parse_beast_posterior(trees_filename, log_filename)
 }
@@ -12,10 +12,10 @@ parse_beast_posterior(trees_filename, log_filename)
 \item{log_filename}{name of the BEAST2 .trees output file}
 }
 \value{
-a Cer2016 posterior
+a posterior
 }
 \description{
-Parses BEAST2 output files to a Cer2016 posterior
+Parses BEAST2 output files to a posterior
 }
 \examples{
   trees_filename <- system.file(

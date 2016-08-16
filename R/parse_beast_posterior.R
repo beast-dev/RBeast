@@ -1,7 +1,7 @@
-#' Parses BEAST2 output files to a Cer2016 posterior
+#' Parses BEAST2 output files to a posterior
 #' @param trees_filename name of the BEAST2 .trees output file
 #' @param log_filename name of the BEAST2 .trees output file
-#' @return a Cer2016 posterior
+#' @return a posterior
 #' @export
 #' @examples
 #'   trees_filename <- system.file(
@@ -26,8 +26,8 @@ parse_beast_posterior <- function(trees_filename, log_filename) {
     stop("log_filename absent")
   }
 
-  posterior_trees <- Cer2016::parse_beast_trees(trees_filename)
-  posterior_estimates <- Cer2016::parse_beast_log(log_filename)
+  posterior_trees <- RBeast::parse_beast_trees(trees_filename)
+  posterior_estimates <- RBeast::parse_beast_log(log_filename)
 
   posterior <- list(
     trees = posterior_trees,

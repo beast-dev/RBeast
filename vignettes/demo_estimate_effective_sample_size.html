@@ -74,16 +74,14 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(Cer2016)</code></pre></div>
-<pre><code>## 
-## Attaching package: 'Cer2016'</code></pre>
-<pre><code>## The following objects are masked from 'package:RBeast':
-## 
-##     calc_act, calc_ess, calc_esses, parse_beast_log,
-##     parse_beast_posterior, parse_beast_trees</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(coda)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">estimates &lt;-<span class="st"> </span><span class="kw">parse_beast_log</span>(
-  <span class="dt">filename =</span> <span class="kw">find_path</span>(<span class="st">&quot;beast2_example_output.log&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RBeast)
+<span class="kw">library</span>(coda)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trees_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(
+  <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;beast2_example_output.log&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RBeast&quot;</span>
+)
+testit::<span class="kw">assert</span>(<span class="kw">file.exists</span>(trees_file))
+estimates &lt;-<span class="st"> </span><span class="kw">parse_beast_log</span>(
+  <span class="dt">filename =</span> trees_file
 )</code></pre></div>
 <p>Display the ESSes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esses &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="kw">ncol</span>(estimates))
