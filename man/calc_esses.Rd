@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_esses.R
 \name{calc_esses}
 \alias{calc_esses}
-\title{Calculates the Effective Sample Sizes}
+\title{Calculates the Effective Sample Sizes from a parsed BEAST2 log file}
 \usage{
 calc_esses(traces, sample_interval)
 }
@@ -15,7 +15,32 @@ calc_esses(traces, sample_interval)
 the effective sample sizes
 }
 \description{
-Calculates the Effective Sample Sizes
+Calculates the Effective Sample Sizes from a parsed BEAST2 log file
+}
+\examples{
+
+  # Obtain a log file its name
+  filename <- system.file(
+    "extdata", "beast2_example_output.log", package = "RBeast"
+  )
+
+  # Parse that log file
+  beast_log_full <- parse_beast_log(filename = filename)
+
+  # Remove the burn-in
+  beast_log <- remove_burn_ins(
+    beast_log_full,
+    burn_in_fraction = 0.1
+  )
+
+  # Calculates the effective sample sizes of all parameter estimates
+  measured <- calc_esses(beast_log, sample_interval = 1000)
+
+  # Round off values to nearest integers
+  measured <- as.integer(measured[1, ] + 0.5)
+  expected <- c(10, 10, 10, 10, 7, 10, 9, 6)
+  testit::assert(all(measured == expected))
+
 }
 \author{
 Richel Bilderbeek

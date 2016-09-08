@@ -17,8 +17,8 @@ test_that("calc_esses: use", {
   )
   df <- calc_esses(estimates, sample_interval = 1000)
 
-  df_expected <- estimates[1, ]
-  df_expected[1, ] <- c(3, 10, 10, 10, 10, 7, 10, 9, 6)
+  df_expected <- df
+  df_expected[1, ] <- c(10, 10, 10, 10, 7, 10, 9, 6)
   df[1, ] <- as.integer(df[1, ] + 0.5) # Round off
 
 
