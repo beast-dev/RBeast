@@ -4,12 +4,10 @@
 \alias{is_posterior}
 \title{Determines if the input is a BEAST2 posterior}
 \usage{
-is_posterior(x, verbose = FALSE)
+is_posterior(x)
 }
 \arguments{
 \item{x}{the input}
-
-\item{verbose}{give verbose output, should be TRUE or FALSE}
 }
 \value{
 TRUE or FALSE

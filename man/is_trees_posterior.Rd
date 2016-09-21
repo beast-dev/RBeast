@@ -5,12 +5,10 @@
 \title{Determines if the input is a BEAST2 posterior,
 as parsed by parse_beast_trees}
 \usage{
-is_trees_posterior(x, verbose = FALSE)
+is_trees_posterior(x)
 }
 \arguments{
 \item{x}{the input}
-
-\item{verbose}{give verbose output, should be TRUE or FALSE}
 }
 \value{
 TRUE or FALSE
