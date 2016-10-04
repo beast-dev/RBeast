@@ -5,7 +5,7 @@ paste(
 }
 ####
 TimeTag <- function(){
-  paste("<!-- Created wtih RBeast at", Sys.time(), "-->\n")
+  paste("<!-- Created with RBeast at", Sys.time(), "-->\n")
 }
 ####
 parseTail <- function(){
