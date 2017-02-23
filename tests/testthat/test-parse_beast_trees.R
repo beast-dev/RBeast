@@ -19,18 +19,14 @@ test_that("parse_beast_trees: abuse", {
     "file absent"
   )
 
-  # To be fixed, see
-  # https://github.com/richelbilderbeek/Cer2016/issues/118
-  if (1 == 2) {
-    log_filename <- system.file(
-     "extdata", "beast2_example_output.log", package = "RBeast"
-    )
-    expect_error(
-      parse_beast_trees(
-        filename = log_filename
-      ),
-      "argument of length 0"
-    )
-  }
+  log_filename <- system.file(
+   "extdata", "beast2_example_output.log", package = "RBeast"
+  )
+  testthat::expect_error(
+    parse_beast_trees(
+      filename = log_filename
+    ),
+    "invalid file"
+  )
 
 })

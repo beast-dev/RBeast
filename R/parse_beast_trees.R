@@ -10,9 +10,6 @@
 #'     filename = trees_filename
 #'   )
 #'   testit::assert(is_trees_posterior(posterior))
-#' @note The function is not yet able to respond
-#'   correctly to invalid files, as documented at
-#'   https://github.com/richelbilderbeek/Cer2016/issues/118
 #' @author Richel Bilderbeek
 parse_beast_trees <- function(filename) {
 
@@ -20,7 +17,13 @@ parse_beast_trees <- function(filename) {
     stop("file absent")
   }
 
-  posterior <- rBEAST::beast2out.read.trees(filename)
+  posterior <- tryCatch( {
+      rBEAST::beast2out.read.trees(filename)
+    },
+    error = function(cond) {
+      stop("invalid file")
+    }
+  )
 
   if (length(posterior) == 1 && is.na(posterior)) {
     stop("invalid file")
