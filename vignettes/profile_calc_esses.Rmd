@@ -1,0 +1,84 @@
+---
+title: "Profile calc_esses"
+author: "Richel Bilderbeek"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Profile calc_esses}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Goal if this vignette is to measure the big-O complexity
+of `calc_esses`, for 
+[RBeast issue #10](https://github.com/beast-dev/RBeast/issues/10).
+
+It proves that `calc_esses` has above `O(n)` complexity.
+
+## Starting point
+
+Here I copied code from the `test_that` test `calc_esses: use`:
+
+```{r}
+filename <- system.file(
+  "extdata", "beast2_example_output.log", package = "RBeast"
+)
+
+estimates_raw <- RBeast::parse_beast_log(
+  filename = filename
+)
+
+# Remove burn-ins
+estimates <- RBeast::remove_burn_ins(
+  estimates_raw,
+  burn_in_fraction = 0.1
+)
+df <- RBeast::calc_esses(estimates, sample_interval = 1000)
+
+df_expected <- df
+df_expected[1, ] <- c(10, 10, 10, 10, 7, 10, 9, 6)
+df[1, ] <- as.integer(df[1, ] + 0.5) # Round off
+
+
+testthat::expect_true(identical(df, df_expected))
+```
+
+What I will do, is resize the data frame `estimates` to different sizes and 
+measure how long `RBeast::calc_esses(estimates, sample_interval = 1000)`
+will take.
+
+```{r}
+
+elapseds <- rbenchmark::benchmark(
+  RBeast::calc_esses(estimates, sample_interval = 1000),
+  replications = 1,
+  columns = c("elapsed")
+)
+ns <- nrow(estimates)
+
+for (i in 1:3)
+{
+  # Duplicate input
+  estimates <- rbind(estimates, estimates)
+  
+  # Measure again
+  elapseds <- rbind(
+    elapseds,
+    rbenchmark::benchmark(
+      RBeast::calc_esses(estimates, sample_interval = 1000),
+      replications = 1,
+      columns = c("elapsed")
+    )
+  )
+  ns <- c(ns, nrow(estimates))
+}
+
+df <- data.frame(n = ns, elapsed = elapseds)
+knitr::kable(df)
+
+ggplot2::qplot(x = df$n, y = df$elapsed)
+```
+
+
+
+
