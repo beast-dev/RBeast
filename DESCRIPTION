@@ -22,6 +22,7 @@ Suggests:
   phangorn,
   OutbreakTools,
   geiger,
+  rbenchmark,
   reshape2,
   rmarkdown,
   testit,
