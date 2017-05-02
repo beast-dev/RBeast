@@ -30,4 +30,3 @@ Parses a BEAST2 .log output file
 \author{
 Richel Bilderbeek
 }
-

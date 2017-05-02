@@ -27,4 +27,3 @@ Extract a list of phylogenies from a BEAST2 posterior file
 \author{
 Richel Bilderbeek
 }
-

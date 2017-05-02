@@ -20,4 +20,3 @@ Removed the burn-ins from a data frame
 \author{
 Richel Bilderbeek
 }
-

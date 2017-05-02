@@ -41,24 +41,14 @@ calc_act <- function(trace, sample_interval) {
     sum2 <- sum
 
     for (lag_index in seq(0, min(i + 1, max_lag) - 1)) {
-      testit::assert(lag_index + 1 >= 1)
-      testit::assert(lag_index + 1 <= length(square_lagged_sums))
-      testit::assert(i + 1 >= 1)
-      testit::assert(i + 1 <= length(trace))
-      testit::assert(i - lag_index + 1 >= 1)
-      testit::assert(i - lag_index + 1 <= length(trace))
-      testit::assert(lag_index + 1 <= length(trace))
       square_lagged_sums[lag_index + 1] <- square_lagged_sums[lag_index + 1] +
         trace[i - lag_index + 1] * trace[i + 1]
       # The following line is the same approximation as in Tracer
       # (valid since mean *(samples - lag), sum1, and sum2 are approximately the same) # nolint
       # though a more accurate estimate would be
       # auto_correlation[lag] = m_fsquare_lagged_sums.get(lag) - sum1 * sum2  # nolint
-      testit::assert(lag_index + 1 >= 1)
-      testit::assert(lag_index + 1 <= length(auto_correlation))
 
       auto_correlation[lag_index + 1] <- square_lagged_sums[lag_index + 1] - (sum1 + sum2) * mean + mean * mean * (i + 1 - lag_index) # nolint
-      testit::assert(i + 1 - lag_index != 0)
       auto_correlation[lag_index + 1] <- auto_correlation[lag_index + 1] / (i + 1 - lag_index) # nolint
       sum1 <- sum1 - trace[i - lag_index + 1]
       sum2 <- sum2 - trace[lag_index + 1]
@@ -87,4 +77,21 @@ calc_act <- function(trace, sample_interval) {
   # auto correlation time
   act <- sample_interval * integral_ac_times_two / auto_correlation[1]
   act
+}
+
+# Keep the next three lines for RCpp
+#' @useDynLib RBeast
+#' @importFrom Rcpp sourceCpp
+NULL
+
+#' Calculate the auto-correlation time, alternative implementation
+#' @param trace the values
+#' @param sample_interval the interval in timesteps between samples
+#' @return the auto_correlation time
+#' @export
+#' @seealso Java code can be found here: \url{https://github.com/CompEvol/beast2/blob/9f040ed0357c4b946ea276a481a4c654ad4fff36/src/beast/core/util/ESS.java#L161}
+#' @author The original Java version of the algorithm was from Remco Bouckaert,
+#'   ported to R and adapted by Richel Bilderbeek
+calc_act_alt <- function(trace, sample_interval) {
+  return(calc_act_cpp(trace, sample_interval))
 }

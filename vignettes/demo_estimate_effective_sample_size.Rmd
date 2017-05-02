@@ -24,6 +24,8 @@ testit::assert(file.exists(trees_file))
 estimates <- parse_beast_log(
   filename = trees_file
 )
+
+knitr::kable(estimates)
 ```
 
 Display the ESSes:

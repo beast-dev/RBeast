@@ -31,4 +31,3 @@ Determines if the input is a BEAST2 posterior
 \author{
 Richel Bilderbeek
 }
-

@@ -33,4 +33,3 @@ Parses BEAST2 output files to a posterior
 \author{
 Richel Bilderbeek
 }
-

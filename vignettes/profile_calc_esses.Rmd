@@ -13,72 +13,78 @@ Goal if this vignette is to measure the big-O complexity
 of `calc_esses`, for 
 [RBeast issue #10](https://github.com/beast-dev/RBeast/issues/10).
 
-It proves that `calc_esses` has above `O(n)` complexity.
-
-## Starting point
-
-Here I copied code from the `test_that` test `calc_esses: use`:
+It proves that `calc_esses`'s main speed is taken up by `calc_act`
 
 ```{r}
-filename <- system.file(
+library(RBeast)
+library(coda)
+```
+
+Starting point
+
+```{r}
+trees_file <- system.file(
   "extdata", "beast2_example_output.log", package = "RBeast"
 )
-
-estimates_raw <- RBeast::parse_beast_log(
-  filename = filename
+testit::assert(file.exists(trees_file))
+estimates <- parse_beast_log(
+  filename = trees_file
 )
 
-# Remove burn-ins
-estimates <- RBeast::remove_burn_ins(
-  estimates_raw,
-  burn_in_fraction = 0.1
-)
-df <- RBeast::calc_esses(estimates, sample_interval = 1000)
-
-df_expected <- df
-df_expected[1, ] <- c(10, 10, 10, 10, 7, 10, 9, 6)
-df[1, ] <- as.integer(df[1, ] + 0.5) # Round off
-
-
-testthat::expect_true(identical(df, df_expected))
+knitr::kable(estimates)
 ```
 
-What I will do, is resize the data frame `estimates` to different sizes and 
-measure how long `RBeast::calc_esses(estimates, sample_interval = 1000)`
-will take.
+Display the ESSes:
 
 ```{r}
+esses <- rep(NA, ncol(estimates))
+burn_in_fraction <- 0.1
+for (i in seq_along(estimates)) {
+  # Trace with the burn-in still present
+  trace_raw <- as.numeric(t(estimates[i]))
 
-elapseds <- rbenchmark::benchmark(
-  RBeast::calc_esses(estimates, sample_interval = 1000),
-  replications = 1,
-  columns = c("elapsed")
-)
-ns <- nrow(estimates)
+  # Trace with the burn-in removed
+  trace <- remove_burn_in(trace = trace_raw, burn_in_fraction = 0.1)
 
-for (i in 1:3)
-{
-  # Duplicate input
-  estimates <- rbind(estimates, estimates)
-  
-  # Measure again
-  elapseds <- rbind(
-    elapseds,
-    rbenchmark::benchmark(
-      RBeast::calc_esses(estimates, sample_interval = 1000),
-      replications = 1,
-      columns = c("elapsed")
-    )
-  )
-  ns <- c(ns, nrow(estimates))
+  # Store the effectice sample size
+  esses[i] <- calc_ess(trace, sample_interval = 1000)
 }
 
-df <- data.frame(n = ns, elapsed = elapseds)
-knitr::kable(df)
+# Note that the first value of three is nonsense:
+# it is the index of the sample. I keep it in
+# for simplicity of writing this code
+expected_esses <- c(3, 10, 10, 10, 10, 7, 10, 9, 6)
+testit::assert(all(expected_esses - esses < 0.5))
 
-ggplot2::qplot(x = df$n, y = df$elapsed)
+df_esses <- data.frame(esses)
+rownames(df_esses) <- names(estimates)
+knitr::kable(df_esses)
 ```
 
+Measuring run-time speed:
 
+```{r}
+rprof_tmp_output <- "~/tmp_RBeast_rprof"
+Rprof(rprof_tmp_output)
 
+for (i in 1:1) {
+  estimates <- rbind(estimates, estimates)
+}
+print(nrow(estimates))
 
+esses <- rep(NA, ncol(estimates))
+burn_in_fraction <- 0.1
+for (i in seq_along(estimates)) {
+  # Trace with the burn-in still present
+  trace_raw <- as.numeric(t(estimates[i]))
+
+  # Trace with the burn-in removed
+  trace <- remove_burn_in(trace = trace_raw, burn_in_fraction = 0.1)
+
+  # Store the effectice sample size
+  esses[i] <- calc_ess(trace, sample_interval = 1000)
+}
+
+Rprof(NULL)
+summaryRprof(rprof_tmp_output)
+```

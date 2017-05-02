@@ -1,0 +1,51 @@
+---
+title: "Profile calc_act"
+author: "Richel Bilderbeek"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Profile calc_act}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Goal if this vignette is to measure the run-time speed of `calc_act`, for 
+[RBeast issue #10](https://github.com/beast-dev/RBeast/issues/10).
+
+```{r}
+library(RBeast)
+```
+
+Create a trace:
+
+```{r}
+set.seed(42)
+trace <- runif(n = 1600, min = 0.0, max = 1.0)
+```
+
+Profiling single function:
+
+```{r}
+if (1 == 2) {
+rprof_tmp_output <- "~/tmp_RBeast_rprof"
+Rprof(rprof_tmp_output)
+calc_act(trace = trace, sample_interval = 1)
+#calc_act_alt(trace = trace, sample_interval = 1)
+Rprof(NULL)
+summaryRprof(rprof_tmp_output)
+}
+```
+
+Profiling two functions:
+
+```{r}
+rprof_tmp_output <- "~/tmp_RBeast_rprof"
+Rprof(rprof_tmp_output)
+x <- calc_act(trace = trace, sample_interval = 1)
+y <- calc_act_alt(trace = trace, sample_interval = 1)
+Rprof(NULL)
+summaryRprof(rprof_tmp_output)
+print(x)
+print(y)
+
+```

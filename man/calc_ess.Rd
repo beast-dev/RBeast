@@ -20,4 +20,3 @@ Calculates the Effective Sample Size
 \author{
 Richel Bilderbeek
 }
-

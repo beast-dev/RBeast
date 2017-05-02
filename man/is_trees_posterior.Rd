@@ -20,4 +20,3 @@ as parsed by parse_beast_trees
 \author{
 Richel Bilderbeek
 }
-

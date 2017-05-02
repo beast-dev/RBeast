@@ -31,4 +31,3 @@ Removed the burn-in from a trace
 \author{
 Richel Bilderbeek
 }
-
