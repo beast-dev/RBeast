@@ -94,5 +94,11 @@ NULL
 #' @author The original Java version of the algorithm was from Remco Bouckaert,
 #'   ported to R and adapted by Richel Bilderbeek
 calc_act <- function(trace, sample_interval) {
+  if (!is.numeric(trace)) {
+    stop("trace must be numeric")
+  }
+  if (sample_interval < 1) {
+    stop("sample interval must be at least one")
+  }
   return(calc_act_cpp(trace, sample_interval))
 }
