@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_act.R
 \name{calc_act}
 \alias{calc_act}
-\title{Calculate the auto-correlation time}
+\title{Calculate the auto-correlation time, alternative implementation}
 \usage{
 calc_act(trace, sample_interval)
 }
@@ -15,7 +15,7 @@ calc_act(trace, sample_interval)
 the auto_correlation time
 }
 \description{
-Calculate the auto-correlation time
+Calculate the auto-correlation time, alternative implementation
 }
 \seealso{
 Java code can be found here: \url{https://github.com/CompEvol/beast2/blob/9f040ed0357c4b946ea276a481a4c654ad4fff36/src/beast/core/util/ESS.java#L161}

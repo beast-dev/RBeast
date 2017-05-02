@@ -78,13 +78,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RBeast)</code></pre></div>
 <p>Create a trace:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">42</span>)
-trace &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">1600</span>, <span class="dt">min =</span> <span class="fl">0.0</span>, <span class="dt">max =</span> <span class="fl">1.0</span>)</code></pre></div>
+trace &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">3200</span>, <span class="dt">min =</span> <span class="fl">0.0</span>, <span class="dt">max =</span> <span class="fl">1.0</span>)</code></pre></div>
 <p>Profiling single function:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (<span class="dv">1</span> ==<span class="st"> </span><span class="dv">2</span>) {
 rprof_tmp_output &lt;-<span class="st"> &quot;~/tmp_RBeast_rprof&quot;</span>
 <span class="kw">Rprof</span>(rprof_tmp_output)
 <span class="kw">calc_act</span>(<span class="dt">trace =</span> trace, <span class="dt">sample_interval =</span> <span class="dv">1</span>)
-<span class="co">#calc_act_alt(trace = trace, sample_interval = 1)</span>
 <span class="kw">Rprof</span>(<span class="ot">NULL</span>)
 <span class="kw">summaryRprof</span>(rprof_tmp_output)
 }</code></pre></div>
@@ -92,72 +91,68 @@ rprof_tmp_output &lt;-<span class="st"> &quot;~/tmp_RBeast_rprof&quot;</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rprof_tmp_output &lt;-<span class="st"> &quot;~/tmp_RBeast_rprof&quot;</span>
 <span class="kw">Rprof</span>(rprof_tmp_output)
 x &lt;-<span class="st"> </span><span class="kw">calc_act</span>(<span class="dt">trace =</span> trace, <span class="dt">sample_interval =</span> <span class="dv">1</span>)
-y &lt;-<span class="st"> </span><span class="kw">calc_act_alt</span>(<span class="dt">trace =</span> trace, <span class="dt">sample_interval =</span> <span class="dv">1</span>)
+y &lt;-<span class="st"> </span><span class="kw">calc_act_r</span>(<span class="dt">trace =</span> trace, <span class="dt">sample_interval =</span> <span class="dv">1</span>)
 <span class="kw">Rprof</span>(<span class="ot">NULL</span>)
 <span class="kw">summaryRprof</span>(rprof_tmp_output)</code></pre></div>
 <pre><code>## $by.self
-##               self.time self.pct total.time total.pct
-## &quot;calc_act&quot;         8.38    89.15       9.38     99.79
-## &quot;+&quot;                0.46     4.89       0.46      4.89
-## &quot;-&quot;                0.28     2.98       0.28      2.98
-## &quot;*&quot;                0.12     1.28       0.12      1.28
-## &quot;(&quot;                0.10     1.06       0.10      1.06
-## &quot;/&quot;                0.02     0.21       0.02      0.21
-## &quot;as.list&quot;          0.02     0.21       0.02      0.21
-## &quot;seq.default&quot;      0.02     0.21       0.02      0.21
+##                   self.time self.pct total.time total.pct
+## &quot;calc_act_r&quot;          30.00    91.63      32.74    100.00
+## &quot;+&quot;                    1.72     5.25       1.72      5.25
+## &quot;-&quot;                    0.42     1.28       0.42      1.28
+## &quot;*&quot;                    0.22     0.67       0.22      0.67
+## &quot;(&quot;                    0.16     0.49       0.16      0.49
+## &quot;/&quot;                    0.08     0.24       0.08      0.24
+## &quot;seq&quot;                  0.06     0.18       0.14      0.43
+## &quot;seq.default&quot;          0.06     0.18       0.06      0.18
+## &quot;lazyLoadDBfetch&quot;      0.02     0.06       0.02      0.06
 ## 
 ## $by.total
 ##                                  total.time total.pct self.time self.pct
-## &quot;FUN&quot;                                  9.40    100.00      0.00     0.00
-## &quot;block_exec&quot;                           9.40    100.00      0.00     0.00
-## &quot;call_block&quot;                           9.40    100.00      0.00     0.00
-## &quot;devtools::document&quot;                   9.40    100.00      0.00     0.00
-## &quot;engine$weave&quot;                         9.40    100.00      0.00     0.00
-## &quot;evaluate&quot;                             9.40    100.00      0.00     0.00
-## &quot;evaluate_call&quot;                        9.40    100.00      0.00     0.00
-## &quot;force&quot;                                9.40    100.00      0.00     0.00
-## &quot;in_dir&quot;                               9.40    100.00      0.00     0.00
-## &quot;knitr::knit&quot;                          9.40    100.00      0.00     0.00
-## &quot;lapply&quot;                               9.40    100.00      0.00     0.00
-## &quot;process_file&quot;                         9.40    100.00      0.00     0.00
-## &quot;process_group&quot;                        9.40    100.00      0.00     0.00
-## &quot;process_group.block&quot;                  9.40    100.00      0.00     0.00
-## &quot;rmarkdown::render&quot;                    9.40    100.00      0.00     0.00
-## &quot;roclet_output&quot;                        9.40    100.00      0.00     0.00
-## &quot;roclet_output.roclet_vignette&quot;        9.40    100.00      0.00     0.00
-## &quot;roxygen2::roxygenise&quot;                 9.40    100.00      0.00     0.00
-## &quot;suppressPackageStartupMessages&quot;       9.40    100.00      0.00     0.00
-## &quot;tools::buildVignette&quot;                 9.40    100.00      0.00     0.00
-## &quot;unlist&quot;                               9.40    100.00      0.00     0.00
-## &quot;vapply&quot;                               9.40    100.00      0.00     0.00
-## &quot;vign_update_all&quot;                      9.40    100.00      0.00     0.00
-## &quot;vweave_rmarkdown&quot;                     9.40    100.00      0.00     0.00
-## &quot;withCallingHandlers&quot;                  9.40    100.00      0.00     0.00
-## &quot;withr::with_envvar&quot;                   9.40    100.00      0.00     0.00
-## &quot;calc_act&quot;                             9.38     99.79      8.38    89.15
-## &quot;eval&quot;                                 9.38     99.79      0.00     0.00
-## &quot;handle&quot;                               9.38     99.79      0.00     0.00
-## &quot;timing_fn&quot;                            9.38     99.79      0.00     0.00
-## &quot;withVisible&quot;                          9.38     99.79      0.00     0.00
-## &quot;+&quot;                                    0.46      4.89      0.46     4.89
-## &quot;-&quot;                                    0.28      2.98      0.28     2.98
-## &quot;*&quot;                                    0.12      1.28      0.12     1.28
-## &quot;(&quot;                                    0.10      1.06      0.10     1.06
-## &quot;/&quot;                                    0.02      0.21      0.02     0.21
-## &quot;as.list&quot;                              0.02      0.21      0.02     0.21
-## &quot;seq.default&quot;                          0.02      0.21      0.02     0.21
-## &quot;handle_output&quot;                        0.02      0.21      0.00     0.00
-## &quot;is_par_change&quot;                        0.02      0.21      0.00     0.00
-## &quot;plot_calls&quot;                           0.02      0.21      0.00     0.00
-## &quot;plot_snapshot&quot;                        0.02      0.21      0.00     0.00
-## &quot;seq&quot;                                  0.02      0.21      0.00     0.00
-## &quot;w$get_new&quot;                            0.02      0.21      0.00     0.00
+## &quot;calc_act_r&quot;                          32.74    100.00     30.00    91.63
+## &quot;FUN&quot;                                 32.74    100.00      0.00     0.00
+## &quot;block_exec&quot;                          32.74    100.00      0.00     0.00
+## &quot;call_block&quot;                          32.74    100.00      0.00     0.00
+## &quot;devtools::document&quot;                  32.74    100.00      0.00     0.00
+## &quot;engine$weave&quot;                        32.74    100.00      0.00     0.00
+## &quot;eval&quot;                                32.74    100.00      0.00     0.00
+## &quot;evaluate&quot;                            32.74    100.00      0.00     0.00
+## &quot;evaluate_call&quot;                       32.74    100.00      0.00     0.00
+## &quot;force&quot;                               32.74    100.00      0.00     0.00
+## &quot;handle&quot;                              32.74    100.00      0.00     0.00
+## &quot;in_dir&quot;                              32.74    100.00      0.00     0.00
+## &quot;knitr::knit&quot;                         32.74    100.00      0.00     0.00
+## &quot;lapply&quot;                              32.74    100.00      0.00     0.00
+## &quot;process_file&quot;                        32.74    100.00      0.00     0.00
+## &quot;process_group&quot;                       32.74    100.00      0.00     0.00
+## &quot;process_group.block&quot;                 32.74    100.00      0.00     0.00
+## &quot;rmarkdown::render&quot;                   32.74    100.00      0.00     0.00
+## &quot;roclet_output&quot;                       32.74    100.00      0.00     0.00
+## &quot;roclet_output.roclet_vignette&quot;       32.74    100.00      0.00     0.00
+## &quot;roxygen2::roxygenise&quot;                32.74    100.00      0.00     0.00
+## &quot;suppressPackageStartupMessages&quot;      32.74    100.00      0.00     0.00
+## &quot;timing_fn&quot;                           32.74    100.00      0.00     0.00
+## &quot;tools::buildVignette&quot;                32.74    100.00      0.00     0.00
+## &quot;unlist&quot;                              32.74    100.00      0.00     0.00
+## &quot;vapply&quot;                              32.74    100.00      0.00     0.00
+## &quot;vign_update_all&quot;                     32.74    100.00      0.00     0.00
+## &quot;vweave_rmarkdown&quot;                    32.74    100.00      0.00     0.00
+## &quot;withCallingHandlers&quot;                 32.74    100.00      0.00     0.00
+## &quot;withVisible&quot;                         32.74    100.00      0.00     0.00
+## &quot;withr::with_envvar&quot;                  32.74    100.00      0.00     0.00
+## &quot;+&quot;                                    1.72      5.25      1.72     5.25
+## &quot;-&quot;                                    0.42      1.28      0.42     1.28
+## &quot;*&quot;                                    0.22      0.67      0.22     0.67
+## &quot;(&quot;                                    0.16      0.49      0.16     0.49
+## &quot;seq&quot;                                  0.14      0.43      0.06     0.18
+## &quot;/&quot;                                    0.08      0.24      0.08     0.24
+## &quot;seq.default&quot;                          0.06      0.18      0.06     0.18
+## &quot;lazyLoadDBfetch&quot;                      0.02      0.06      0.02     0.06
 ## 
 ## $sample.interval
 ## [1] 0.02
 ## 
 ## $sampling.time
-## [1] 9.4</code></pre>
+## [1] 32.74</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(x)</code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(y)</code></pre></div>

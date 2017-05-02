@@ -1,4 +1,5 @@
-#' Calculate the auto-correlation time
+#' Calculate the auto-correlation time using only R. Consider using calc_act
+#' instead, as it is orders of magnitude faster
 #' @param trace the values
 #' @param sample_interval the interval in timesteps between samples
 #' @return the auto_correlation time
@@ -6,7 +7,7 @@
 #' @seealso Java code can be found here: \url{https://github.com/CompEvol/beast2/blob/9f040ed0357c4b946ea276a481a4c654ad4fff36/src/beast/core/util/ESS.java#L161}
 #' @author The original Java version of the algorithm was from Remco Bouckaert,
 #'   ported to R and adapted by Richel Bilderbeek
-calc_act <- function(trace, sample_interval) {
+calc_act_r <- function(trace, sample_interval) {
   if (!is.numeric(trace)) {
     stop("trace must be numeric")
   }
@@ -92,6 +93,6 @@ NULL
 #' @seealso Java code can be found here: \url{https://github.com/CompEvol/beast2/blob/9f040ed0357c4b946ea276a481a4c654ad4fff36/src/beast/core/util/ESS.java#L161}
 #' @author The original Java version of the algorithm was from Remco Bouckaert,
 #'   ported to R and adapted by Richel Bilderbeek
-calc_act_alt <- function(trace, sample_interval) {
+calc_act <- function(trace, sample_interval) {
   return(calc_act_cpp(trace, sample_interval))
 }
