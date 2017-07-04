@@ -18,4 +18,3 @@ This function executes BEAST through rJava.
 \examples{
   runBeast()
 }
-
