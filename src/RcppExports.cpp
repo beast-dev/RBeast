@@ -17,3 +17,13 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+
+static const R_CallMethodDef CallEntries[] = {
+    {"RBeast_calc_act_cpp", (DL_FUNC) &RBeast_calc_act_cpp, 2},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_RBeast(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+}
