@@ -49,7 +49,9 @@ extract_operators_lines <- function(filename)
   lines <- readLines(filename, warn = FALSE)
 
   start_indices <- lines ==  "{\"operators\":["
-  testit::assert(sum(start_indices) == 1)
+  if (sum(start_indices) != 1) {
+    stop("start of BEAST2 operators JSON not found")
+  }
   start_index <- which(start_indices == TRUE)
   testit::assert(lines[start_index] == "{\"operators\":[")
 
