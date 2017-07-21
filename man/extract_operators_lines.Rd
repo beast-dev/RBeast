@@ -2,12 +2,12 @@
 % Please edit documentation in R/parse_beast_state.R
 \name{extract_operators_lines}
 \alias{extract_operators_lines}
-\title{Extract the lines out of a .xml.state file with the operators}
+\title{Extract the JSON lines out of a .xml.state file with the operators}
 \usage{
 extract_operators_lines(filename)
 }
 \description{
-Extract the lines out of a .xml.state file with the operators
+Extract the JSON lines out of a .xml.state file with the operators
 }
 \author{
 Richel Bilderbeek
