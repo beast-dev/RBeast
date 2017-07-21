@@ -12,9 +12,10 @@ Description:
 License: file LICENSE
 LazyData: TRUE
 Imports:
+  jsonlite,
   rBEAST,
   rJava,
-    Rcpp
+  Rcpp
 Suggests:
   ape,
   coda,

@@ -1,4 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-.travis.yml
-.lintr
+^\.travis.yml$
+^.lintr$
+^Codecov\.png$
+^TravisCI\.png$
