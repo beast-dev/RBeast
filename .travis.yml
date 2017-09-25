@@ -18,7 +18,3 @@ after_failure:
   - Rscript -e 'goodpractice::gp()'
   - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00install.out
   - cat /home/travis/build/beast-dev/RBeast/..Rcheck/00check.log
-
-env:
-  - LINTR_COMMENT_BOT=false
-  
