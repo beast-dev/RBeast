@@ -19,32 +19,57 @@ library(RBeast)
 Create a trace:
 
 ```{r}
-set.seed(42)
-trace <- runif(n = 3200, min = 0.0, max = 1.0)
+trace <- sin(seq(from = 0.0, to = 2.0 * pi, length.out = 10))
 ```
 
-Profiling single function:
+Every size, the size of `trace` is doubled.
 
 ```{r}
-if (1 == 2) {
-rprof_tmp_output <- "~/tmp_RBeast_rprof"
-Rprof(rprof_tmp_output)
-calc_act(trace = trace, sample_interval = 1)
-Rprof(NULL)
-summaryRprof(rprof_tmp_output)
+n_sizes <- 6
+n_types <- 2
+elapseds <- data.frame(
+  type = as.factor(rep(c("cpp", "r"), times = n_sizes)),
+  size = rep(NA, times = n_sizes * n_types),
+  t_sec = rep(NA, times = n_sizes * n_types)
+)
+
+
+for (i in seq(1, n_sizes))
+{
+  # Duplicate input
+  trace <- c(trace, trace)
+  
+  # Measure again
+  t_r <- rbenchmark::benchmark(
+    RBeast::calc_act_r(trace, sample_interval = 2),
+    replications = 1,
+    columns = c("elapsed")
+  )$elapsed
+  t_cpp <- rbenchmark::benchmark(
+    RBeast::calc_act(trace, sample_interval = 2),
+    replications = 1,
+    columns = c("elapsed")
+  )$elapsed
+
+  elapseds$size[(i * 2) - 1] <- length(trace)  
+  elapseds$size[i * 2]  <- length(trace)
+  elapseds$t_sec[(i * 2) - 1] <- t_cpp  
+  elapseds$t_sec[i * 2] <- t_r
 }
 ```
 
-Profiling two functions:
+In a plot:
 
 ```{r}
-rprof_tmp_output <- "~/tmp_RBeast_rprof"
-Rprof(rprof_tmp_output)
-x <- calc_act(trace = trace, sample_interval = 1)
-y <- calc_act_r(trace = trace, sample_interval = 1)
-Rprof(NULL)
-summaryRprof(rprof_tmp_output)
-print(x)
-print(y)
 
+ggplot2::ggplot(
+ data = elapseds,
+ ggplot2::aes(x = size, y = t_sec, color = type)
+) + ggplot2::geom_line() + 
+  ggplot2::geom_point() + 
+  ggplot2::ggtitle("cpp version is faster")
 ```
+
+
+
+
