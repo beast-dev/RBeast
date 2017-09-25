@@ -368,7 +368,7 @@ cat("\t;\n", file = outTREE, append = TRUE)
 cat("END;\n\n", file = outTREE, append = TRUE)
 cat("BEGIN TREES;\n", file = outTREE, append = TRUE)
 cat("\tTRANSLATE\n", file = outTREE, append = TRUE)
-tmp <- checkLabel(apeTree$tip.label)
+tmp <- ape::checkLabel(apeTree$tip.label)
 X <- paste("\t\t", 1:N, "\t", tmp, ",", sep = "")
 ## We remove the last comma:
 X[length(X)] <- gsub(",", "", X[length(X)])
