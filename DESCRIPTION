@@ -13,6 +13,7 @@ License: file LICENSE
 LazyData: TRUE
 Imports:
   jsonlite,
+  OutbreakTools,
   rBEAST,
   rJava,
   Rcpp

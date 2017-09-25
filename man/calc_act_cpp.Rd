@@ -8,10 +8,10 @@ calc_act_cpp(sample, sample_interval)
 }
 \arguments{
 \item{sample}{sample}
+
+\item{sample_interval}{sample interval}
 }
 \value{
-sample_interval sample interval
-
 the ACT
 }
 \description{

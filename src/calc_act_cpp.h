@@ -5,7 +5,7 @@
 
 //' Does magic
 //' @param sample sample
-//' @return sample_interval sample interval
+//' @param sample_interval sample interval
 //' @return the ACT
 // [[Rcpp::export]]
 double calc_act_cpp(const std::vector<double>& sample, const int sample_interval);

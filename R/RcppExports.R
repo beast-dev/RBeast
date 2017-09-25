@@ -3,9 +3,9 @@
 
 #' Does magic
 #' @param sample sample
-#' @return sample_interval sample interval
+#' @param sample_interval sample interval
 #' @return the ACT
 calc_act_cpp <- function(sample, sample_interval) {
-    .Call('RBeast_calc_act_cpp', PACKAGE = 'RBeast', sample, sample_interval)
+    .Call('_RBeast_calc_act_cpp', PACKAGE = 'RBeast', sample, sample_interval)
 }
 

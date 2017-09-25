@@ -6,6 +6,9 @@
 \usage{
 extract_operators_lines(filename)
 }
+\arguments{
+\item{filename}{name of the BEAST2 .xml.state output file}
+}
 \description{
 Extract the JSON lines out of a .xml.state file with the operators
 }

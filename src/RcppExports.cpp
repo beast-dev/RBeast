@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // calc_act_cpp
 double calc_act_cpp(const std::vector<double>& sample, const int sample_interval);
-RcppExport SEXP RBeast_calc_act_cpp(SEXP sampleSEXP, SEXP sample_intervalSEXP) {
+RcppExport SEXP _RBeast_calc_act_cpp(SEXP sampleSEXP, SEXP sample_intervalSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -19,7 +19,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"RBeast_calc_act_cpp", (DL_FUNC) &RBeast_calc_act_cpp, 2},
+    {"_RBeast_calc_act_cpp", (DL_FUNC) &_RBeast_calc_act_cpp, 2},
     {NULL, NULL, 0}
 };
 

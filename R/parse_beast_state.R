@@ -38,6 +38,7 @@ parse_beast_state_operators <- function(
 
 
 #' Extract the JSON lines out of a .xml.state file with the operators
+#' @param filename name of the BEAST2 .xml.state output file
 #' @export
 #' @author Richel Bilderbeek
 extract_operators_lines <- function(filename)
