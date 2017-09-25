@@ -6,7 +6,7 @@ test_that("parse_beast_log: use", {
     "extdata", "beast2_example_output.log", package = "RBeast"
   )
 
-  estimates <- parse_beast_log(
+  estimates <- RBeast::parse_beast_log(
     filename = filename
   )
   expected_names <- c(
@@ -14,7 +14,7 @@ test_that("parse_beast_log: use", {
    "prior", "treeLikelihood", "TreeHeight",
    "BirthDeath", "birthRate2", "relativeDeathRate2"
   )
-  expect_equal(names(estimates), expected_names)
+  testthat::expect_equal(names(estimates), expected_names)
 
 })
 

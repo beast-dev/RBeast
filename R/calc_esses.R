@@ -35,6 +35,9 @@ calc_esses <- function(traces, sample_interval) {
   if (sample_interval < 1) {
     stop("sample interval must be at least one")
   }
+
+  # Remove warning: no visible binding for global variable 'Sample'
+  Sample <- NULL; rm(Sample)
   # Remove the Sample column from the dataframe
   traces <- subset(traces, select = -c(Sample ))
 
