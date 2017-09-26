@@ -26,4 +26,15 @@ test_that("detect non-posteriors", {
     RBeast::is_posterior("nonsense")
   )
 
+  testthat::expect_false(
+    RBeast::is_posterior(list("estimates" = NA,  "nonsense" = NA))
+  )
+  testthat::expect_false(
+    RBeast::is_posterior(list("trees" = NA,  "nonsense" = NA))
+  )
+
+  testthat::expect_true(
+    RBeast::is_posterior(list("trees" = NA,  "estimates" = NA))
+  )
+
 })
