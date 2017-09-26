@@ -20,6 +20,12 @@ is_posterior <- function(x) {
   if (class(x) != "list") {
     return(FALSE)
   }
+  if (!("trees" %in% names(x))) {
+    return(FALSE)
+  }
+  if (!("estimates" %in% names(x))) {
+    return(FALSE)
+  }
 
   return(TRUE)
 }

@@ -1,6 +1,6 @@
 context("is_posterior")
 
-test_that("is_posterior: use", {
+test_that("detect posterior", {
 
   trees_filename <- system.file(
     "extdata", "beast2_example_output.trees", package = "RBeast"
@@ -12,10 +12,18 @@ test_that("is_posterior: use", {
   )
   testit::assert(file.exists(log_filename))
 
-  posterior <- parse_beast_posterior(
+  posterior <- RBeast::parse_beast_posterior(
     trees_filename = trees_filename,
     log_filename = log_filename
   )
-  expect_true(is_posterior(posterior))
+  testthat::expect_true(is_posterior(posterior))
+
+})
+
+test_that("detect non-posteriors", {
+
+  testthat::expect_false(
+    RBeast::is_posterior("nonsense")
+  )
 
 })
