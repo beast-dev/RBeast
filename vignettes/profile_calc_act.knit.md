@@ -1,10 +1,33 @@
-## ------------------------------------------------------------------------
+---
+title: "Profile calc_act"
+author: "Richel Bilderbeek"
+date: "2017-09-26"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Profile calc_act}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Goal if this vignette is to measure the run-time speed of `calc_act`, for 
+[RBeast issue #10](https://github.com/beast-dev/RBeast/issues/10).
+
+
+```r
 library(RBeast)
+```
 
-## ------------------------------------------------------------------------
+Create a trace:
+
+
+```r
 trace <- sin(seq(from = 0.0, to = 2.0 * pi, length.out = 10))
+```
 
-## ------------------------------------------------------------------------
+Every size, the size of `trace` is doubled.
+
+
+```r
 n_sizes <- 6
 n_types <- 2
 elapseds <- data.frame(
@@ -36,13 +59,22 @@ for (i in seq(1, n_sizes))
   elapseds$t_sec[(i * 2) - 1] <- t_cpp  
   elapseds$t_sec[i * 2] <- t_r
 }
+```
 
-## ------------------------------------------------------------------------
+In a plot:
 
+
+```r
 ggplot2::ggplot(
  data = elapseds,
  ggplot2::aes(x = size, y = t_sec, color = type)
 ) + ggplot2::geom_line() + 
   ggplot2::geom_point() + 
   ggplot2::ggtitle("cpp version is faster")
+```
+
+![](profile_calc_act_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
+
+
+
 

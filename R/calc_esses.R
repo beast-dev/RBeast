@@ -4,7 +4,7 @@
 #' @return the effective sample sizes
 #' @examples
 #'
-#'   # Obtain a log file its name
+#'   # Obtain an example log file its name
 #'   filename <- system.file(
 #'     "extdata", "beast2_example_output.log", package = "RBeast"
 #'   )
@@ -19,12 +19,12 @@
 #'   )
 #'
 #'   # Calculates the effective sample sizes of all parameter estimates
-#'   measured <- calc_esses(beast_log, sample_interval = 1000)
+#'   esses <- calc_esses(beast_log, sample_interval = 1000)
 #'
 #'   # Round off values to nearest integers
-#'   measured <- as.integer(measured[1, ] + 0.5)
+#'   esses <- as.integer(esses[1, ] + 0.5)
 #'   expected <- c(10, 10, 10, 10, 7, 10, 9, 6)
-#'   testit::assert(all(measured == expected))
+#'   testit::assert(all(esses == expected))
 #'
 #' @export
 #' @author Richel Bilderbeek
