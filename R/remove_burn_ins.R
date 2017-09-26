@@ -18,9 +18,7 @@ remove_burn_ins <- function(traces, burn_in_fraction) {
   first_index <- as.integer(1 + (n * burn_in_fraction))
 
   if (first_index >= nrow(traces)) {
-    empty_df <- data.frame()
-    names(empty_df) <- names(traces)
-    return(empty_df)
+    return(traces[0, ])
   }
   out <- traces[ seq(first_index, n), ]
   out

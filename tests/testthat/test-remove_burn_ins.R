@@ -1,6 +1,6 @@
 context("remove_burn_ins")
 
-test_that("remove_burn_ins: use", {
+test_that("normal use", {
 
   # Remove first ten percent
   v <- data.frame(x = seq(1, 10), y = seq(11, 20))
@@ -9,6 +9,14 @@ test_that("remove_burn_ins: use", {
   names(expected) <- names(w)
 
   expect_true(all(w == expected))
+})
+
+test_that("100 percent burn-in", {
+
+  # Remove first ten percent
+  v <- data.frame(x = seq(1, 10), y = seq(11, 20))
+  w <- RBeast::remove_burn_ins(trace = v, burn_in_fraction  = 1.0)
+  testthat::expect_equal(nrow(w), 0)
 })
 
 
