@@ -6,7 +6,7 @@ master|[![Build Status](https://travis-ci.org/beast-dev/RBeast.svg?branch=master
 develop|[![Build Status](https://travis-ci.org/beast-dev/RBeast.svg?branch=develop)](https://travis-ci.org/beast-dev/RBeast)|[![codecov.io](https://codecov.io/github/beast-dev/RBeast/coverage.svg?branch=develop)](https://codecov.io/github/beast-dev/RBeast/branch/develop)
 
 R package for working with BEAST and BEAST2 output (`.log` and `.trees`) files. 
-Use [beastscriptr](https://github.com/richelbilderbeek/beastscriptr) to generate BEAST2 input (`.xml`) files.
+Use [beautier](https://github.com/richelbilderbeek/beautier) to generate BEAST2 input (`.xml`) files.
 
 
 ## Example
