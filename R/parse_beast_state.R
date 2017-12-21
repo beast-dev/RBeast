@@ -17,16 +17,8 @@
 #'   #testit::assert(estimates$operator == expected_operators)
 #' @author Richel J.C. Bilderbeek
 parse_beast_state_operators <- function(
-    filename = system.file("extdata", "beast2_example_output.xml.state", package = "RBeast")
+    filename = system.file("extdata", "beast2_example_output.xml.state",
+      package = "RBeast")
 ) {
   beastier::parse_beast_state_operators(filename)
-}
-
-#' Extract the JSON lines out of a .xml.state file with the operators
-#' @param filename name of the BEAST2 .xml.state output file
-#' @export
-#' @author Richel J.C. Bilderbeek
-extract_operators_lines <- function(filename)
-{
-  beastier::extract_operators_lines(filename)
 }
