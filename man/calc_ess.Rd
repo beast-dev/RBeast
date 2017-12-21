@@ -49,5 +49,5 @@ Calculates the Effective Sample Size
  testit::assert(all(expected_esses - esses < 0.5))
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }

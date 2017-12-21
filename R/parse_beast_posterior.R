@@ -15,24 +15,8 @@
 #'     log_filename = log_filename
 #'   )
 #'   testit::assert(is_posterior(posterior))
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 parse_beast_posterior <- function(trees_filename, log_filename) {
 
-  if (!file.exists(trees_filename)) {
-    stop("trees_filename absent")
-  }
-
-  if (!file.exists(log_filename)) {
-    stop("log_filename absent")
-  }
-
-  posterior_trees <- RBeast::parse_beast_trees(trees_filename)
-  posterior_estimates <- RBeast::parse_beast_log(log_filename)
-
-  posterior <- list(
-    trees = posterior_trees,
-    estimates = posterior_estimates
-  )
-  testit::assert(RBeast::is_posterior(posterior))
-  posterior
+  beastier::parse_beast_posterior(trees_filename, log_filename)
 }

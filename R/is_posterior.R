@@ -1,7 +1,7 @@
 #' Determines if the input is a BEAST2 posterior
 #' @param x the input
 #' @return TRUE or FALSE
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 #' @examples
 #'   trees_filename <- system.file(
 #'    "extdata", "beast2_example_output.trees", package = "RBeast"
@@ -17,15 +17,5 @@
 #' @export
 is_posterior <- function(x) {
 
-  if (class(x) != "list") {
-    return(FALSE)
-  }
-  if (!("trees" %in% names(x))) {
-    return(FALSE)
-  }
-  if (!("estimates" %in% names(x))) {
-    return(FALSE)
-  }
-
-  return(TRUE)
+  beastier::is_posterior(x)
 }

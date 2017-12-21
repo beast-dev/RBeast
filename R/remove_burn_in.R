@@ -13,22 +13,8 @@
 #'
 #'   # Check that the result goes from two to ten
 #'   testit::assert(w == seq(2, 10))
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 remove_burn_in <- function(trace, burn_in_fraction) {
-  if (!is.numeric(trace)) {
-    stop("trace must be numeric")
-  }
-  if (burn_in_fraction < 0.0) {
-    stop("burn_in_fraction must be at least zero")
-  }
-  if (burn_in_fraction > 1.0) {
-    stop("burn_in_fraction must be at most one")
-  }
-  n <- length(trace)
-  first_index <- as.integer(1 + (n * burn_in_fraction))
-  if (first_index >= length(trace)) {
-    return(c())
-  }
-  out <- trace[ seq(first_index, n) ]
-  out
+
+  beastier::remove_burn_in(trace, burn_in_fraction)
 }

@@ -27,7 +27,7 @@
 #'   testit::assert(all(esses == expected))
 #'
 #' @export
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 calc_esses <- function(traces, sample_interval) {
   if (!is.data.frame(traces)) {
     stop("traces must be a data.frame")

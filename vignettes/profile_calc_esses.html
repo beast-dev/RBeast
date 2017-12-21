@@ -10,9 +10,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="Richel Bilderbeek" />
+<meta name="author" content="Richel J.C. Bilderbeek" />
 
-<meta name="date" content="2017-09-26" />
+<meta name="date" content="2017-12-21" />
 
 <title>Profile calc_esses</title>
 
@@ -69,8 +69,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Profile calc_esses</h1>
-<h4 class="author"><em>Richel Bilderbeek</em></h4>
-<h4 class="date"><em>2017-09-26</em></h4>
+<h4 class="author"><em>Richel J.C. Bilderbeek</em></h4>
+<h4 class="date"><em>2017-12-21</em></h4>
 
 
 
@@ -82,12 +82,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">trees_file &lt;-<span class="st"> </span><span class="kw">system.file</span>(
   <span class="st">&quot;extdata&quot;</span>, <span class="st">&quot;beast2_example_output.log&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;RBeast&quot;</span>
 )
-testit::<span class="kw">assert</span>(<span class="kw">file.exists</span>(trees_file))
+testit<span class="op">::</span><span class="kw">assert</span>(<span class="kw">file.exists</span>(trees_file))
 estimates &lt;-<span class="st"> </span><span class="kw">parse_beast_log</span>(
   <span class="dt">filename =</span> trees_file
 )
 
-knitr::<span class="kw">kable</span>(estimates)</code></pre></div>
+knitr<span class="op">::</span><span class="kw">kable</span>(estimates)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -229,7 +229,7 @@ knitr::<span class="kw">kable</span>(estimates)</code></pre></div>
 <p>Display the ESSes:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esses &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="kw">ncol</span>(estimates))
 burn_in_fraction &lt;-<span class="st"> </span><span class="fl">0.1</span>
-for (i in <span class="kw">seq_along</span>(estimates)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(estimates)) {
   <span class="co"># Trace with the burn-in still present</span>
   trace_raw &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">t</span>(estimates[i]))
 
@@ -244,11 +244,11 @@ for (i in <span class="kw">seq_along</span>(estimates)) {
 <span class="co"># it is the index of the sample. I keep it in</span>
 <span class="co"># for simplicity of writing this code</span>
 expected_esses &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">6</span>)
-testit::<span class="kw">assert</span>(<span class="kw">all</span>(expected_esses -<span class="st"> </span>esses &lt;<span class="st"> </span><span class="fl">0.5</span>))
+testit<span class="op">::</span><span class="kw">assert</span>(<span class="kw">all</span>(expected_esses <span class="op">-</span><span class="st"> </span>esses <span class="op">&lt;</span><span class="st"> </span><span class="fl">0.5</span>))
 
 df_esses &lt;-<span class="st"> </span><span class="kw">data.frame</span>(esses)
 <span class="kw">rownames</span>(df_esses) &lt;-<span class="st"> </span><span class="kw">names</span>(estimates)
-knitr::<span class="kw">kable</span>(df_esses)</code></pre></div>
+knitr<span class="op">::</span><span class="kw">kable</span>(df_esses)</code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -299,14 +299,14 @@ knitr::<span class="kw">kable</span>(df_esses)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rprof_tmp_output &lt;-<span class="st"> &quot;~/tmp_RBeast_rprof&quot;</span>
 <span class="kw">Rprof</span>(rprof_tmp_output)
 
-for (i in <span class="dv">1</span>:<span class="dv">1</span>) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">1</span>) {
   estimates &lt;-<span class="st"> </span><span class="kw">rbind</span>(estimates, estimates)
 }
 <span class="kw">print</span>(<span class="kw">nrow</span>(estimates))</code></pre></div>
 <pre><code>## [1] 22</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">esses &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="kw">ncol</span>(estimates))
 burn_in_fraction &lt;-<span class="st"> </span><span class="fl">0.1</span>
-for (i in <span class="kw">seq_along</span>(estimates)) {
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(estimates)) {
   <span class="co"># Trace with the burn-in still present</span>
   trace_raw &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">t</span>(estimates[i]))
 

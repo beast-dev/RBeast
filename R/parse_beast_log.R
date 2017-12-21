@@ -13,20 +13,7 @@
 #'     "BirthDeath", "birthRate2", "relativeDeathRate2"
 #'   )
 #'   testit::assert(names(estimates) == expected_names)
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 parse_beast_log <- function(filename) {
-  if (!file.exists(filename)) {
-    stop("file absent")
-  }
-  estimates <- utils::read.csv(
-    file = filename,
-    header = TRUE,
-    stringsAsFactors = FALSE,
-    row.names = NULL,
-    sep = "\t",
-    comment.char = "#"
-  )
-  # Remove a column with the name X, no idea where it comes from
-  estimates <- estimates[, !(names(estimates) %in% c("X"))]
-  estimates
+  beastier::parse_beast_log(filename)
 }

@@ -28,5 +28,5 @@ Parses a BEAST2 .log output file
   testit::assert(names(estimates) == expected_names)
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }

@@ -18,5 +18,5 @@ Determines if the input is a BEAST2 posterior,
 as parsed by parse_beast_trees
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }

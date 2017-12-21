@@ -13,5 +13,5 @@ extract_operators_lines(filename)
 Extract the JSON lines out of a .xml.state file with the operators
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }

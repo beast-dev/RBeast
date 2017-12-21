@@ -25,5 +25,5 @@ Parses a BEAST2 .trees output file
   testit::assert(is_trees_posterior(posterior))
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }

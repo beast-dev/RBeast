@@ -30,5 +30,5 @@ Java code can be found here: \url{https://github.com/CompEvol/beast2/blob/9f040e
 }
 \author{
 The original Java version of the algorithm was from Remco Bouckaert,
-  ported to R and adapted by Richel Bilderbeek
+  ported to R and adapted by Richel J.C. Bilderbeek
 }

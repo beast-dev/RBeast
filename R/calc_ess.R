@@ -33,18 +33,7 @@
 #'  expected_esses <- c(10, 10, 10, 10, 7, 10, 9, 6)
 #'  testit::assert(all(expected_esses - esses < 0.5))
 #' @export
-#' @author Richel Bilderbeek
+#' @author Richel J.C. Bilderbeek
 calc_ess <- function(trace, sample_interval) {
-  if (!is.numeric(trace)) {
-    stop("trace must be numeric")
-  }
-  if (sample_interval < 1) {
-    stop("sample interval must be at least one")
-  }
-  act <- RBeast::calc_act(
-    trace = trace,
-    sample_interval = sample_interval
-  )
-  ess <- length(trace) / (act / sample_interval)
-  ess
+  beastier::calc_ess(trace, sample_interval)
 }

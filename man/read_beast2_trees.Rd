@@ -25,5 +25,5 @@ Extract a list of phylogenies from a BEAST2 posterior file
   testit::assert(class(posterior[[1]]) == "phylo")
 }
 \author{
-Richel Bilderbeek
+Richel J.C. Bilderbeek
 }
