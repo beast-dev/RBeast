@@ -7,9 +7,13 @@ develop|[![Build Status](https://travis-ci.org/beast-dev/RBeast.svg?branch=devel
 
 R package for working with BEAST and BEAST2.
 
-Use [beautier](https://github.com/richelbilderbeek/beautier) to generate BEAST2 input (`.xml`) files.
+Use [beautier](https://github.com/richelbilderbeek/beautier) to create BEAST2 input (`.xml`) files.
 
-Use [beastier](https://github.com/richelbilderbeek/beastier) for calling BEAST2 from R, and parsing BEAST2 output files. 
+Use [beastier](https://github.com/richelbilderbeek/beastier) to paste BEAST2 output (`.log`, `.trees`, etc) files.
+
+Use [lumier](https://github.com/richelbilderbeek/lumier) to run BEAST2.
+
+Use [BEASTmasteR](https://github.com/nmatzke/BEASTmasteR) for tip-dating analyses using fossils as dated terminal taxa.
 
 ## Example
 
