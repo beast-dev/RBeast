@@ -9,9 +9,9 @@ R package for working with BEAST and BEAST2.
 
 Use [beautier](https://github.com/richelbilderbeek/beautier) to create BEAST2 input (`.xml`) files.
 
-Use [beastier](https://github.com/richelbilderbeek/beastier) to paste BEAST2 output (`.log`, `.trees`, etc) files.
+Use [beastier](https://github.com/richelbilderbeek/beastier) to run BEAST2.
 
-Use [lumier](https://github.com/richelbilderbeek/lumier) to run BEAST2.
+Use [tracerer](https://github.com/richelbilderbeek/tracerer) to parse BEAST2 output (`.log`, `.trees`, etc) files.
 
 Use [BEASTmasteR](https://github.com/nmatzke/BEASTmasteR) for tip-dating analyses using fossils as dated terminal taxa.
 
