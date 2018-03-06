@@ -20,5 +20,5 @@ parse_beast_state_operators <- function(
     filename = system.file("extdata", "beast2_example_output.xml.state",
       package = "RBeast")
 ) {
-  beastier::parse_beast_state_operators(filename)
+  tracerer::parse_beast_state_operators(filename)
 }

@@ -9,10 +9,3 @@ test_that("read_beast2_trees: use", {
   expect_equal(length(posterior), 10)
   expect_equal(class(posterior[[1]]), "phylo")
 })
-
-test_that("read_beast2_trees: abuse", {
-  expect_error(
-    read_beast2_trees("inva.lid"),
-    "file not found"
-  )
-})

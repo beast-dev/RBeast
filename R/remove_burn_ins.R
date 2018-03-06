@@ -6,5 +6,5 @@
 #' @author Richel J.C. Bilderbeek
 remove_burn_ins <- function(traces, burn_in_fraction) {
 
-  beastier::remove_burn_ins(traces, burn_in_fraction)
+  tracerer::remove_burn_ins(traces, burn_in_fraction)
 }

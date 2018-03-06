@@ -35,5 +35,5 @@
 #' @export
 #' @author Richel J.C. Bilderbeek
 calc_ess <- function(trace, sample_interval) {
-  beastier::calc_ess(trace, sample_interval)
+  tracerer::calc_ess(trace, sample_interval)
 }

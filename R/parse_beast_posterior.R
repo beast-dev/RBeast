@@ -18,5 +18,5 @@
 #' @author Richel J.C. Bilderbeek
 parse_beast_posterior <- function(trees_filename, log_filename) {
 
-  beastier::parse_beast_posterior(trees_filename, log_filename)
+  tracerer::parse_beast_posterior(trees_filename, log_filename)
 }

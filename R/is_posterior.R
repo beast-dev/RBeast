@@ -17,5 +17,5 @@
 #' @export
 is_posterior <- function(x) {
 
-  beastier::is_posterior(x)
+  tracerer::is_posterior(x)
 }

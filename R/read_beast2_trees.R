@@ -12,5 +12,5 @@
 #' @export
 #' @author Richel J.C. Bilderbeek
 read_beast2_trees <- function(filename) {
-  beastier::read_beast2_trees(filename)
+  tracerer::parse_beast_trees(filename)
 }

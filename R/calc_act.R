@@ -15,7 +15,7 @@
 #' @author The original Java version of the algorithm was from Remco Bouckaert,
 #'   ported to R and adapted by Richel J.C. Bilderbeek
 calc_act_r <- function(trace, sample_interval) {
-  beastier::calc_act_r(trace, sample_interval)
+  tracerer::calc_act_r(trace, sample_interval)
 }
 
 #' Calculate the auto-correlation time, alternative implementation
@@ -34,5 +34,5 @@ calc_act_r <- function(trace, sample_interval) {
 #' @author The original Java version of the algorithm was from Remco Bouckaert,
 #'   ported to R and adapted by Richel J.C. Bilderbeek
 calc_act <- function(trace, sample_interval) {
-  beastier::calc_act(trace, sample_interval)
+  tracerer::calc_act(trace, sample_interval)
 }

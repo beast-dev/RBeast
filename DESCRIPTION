@@ -12,7 +12,7 @@ Description:
 License: file LICENSE
 LazyData: TRUE
 Imports:
-  beastier,
+  tracerer,
   jsonlite,
   rBEAST,
   rJava
@@ -32,7 +32,7 @@ Suggests:
 Remotes:
   jimhester/covr,
   jimhester/lintr,
-  richelbilderbeek/beastier,
+  richelbilderbeek/tracerer,
   MangoTheCat/goodpractice
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1

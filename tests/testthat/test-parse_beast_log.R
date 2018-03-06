@@ -17,12 +17,3 @@ test_that("parse_beast_log: use", {
   testthat::expect_equal(names(estimates), expected_names)
 
 })
-
-test_that("parse_beast_log: abuse", {
-
-  expect_error(
-    parse_beast_log(filename = "inva.lid"),
-    "file absent"
-  )
-
-})

@@ -5,5 +5,5 @@
 #' @author Richel J.C. Bilderbeek
 #' @export
 is_trees_posterior <- function(x) {
-  beastier::is_trees_posterior(x)
+  tracerer::is_trees_posterior(x)
 }

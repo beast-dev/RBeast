@@ -15,5 +15,5 @@
 #'   testit::assert(names(estimates) == expected_names)
 #' @author Richel J.C. Bilderbeek
 parse_beast_log <- function(filename) {
-  beastier::parse_beast_log(filename)
+  tracerer::parse_beast_log(filename)
 }

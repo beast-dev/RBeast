@@ -13,5 +13,5 @@
 #' @author Richel J.C. Bilderbeek
 parse_beast_trees <- function(filename) {
 
-  beastier::parse_beast_trees(filename)
+  tracerer::parse_beast_trees(filename)
 }
