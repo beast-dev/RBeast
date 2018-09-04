@@ -14,7 +14,6 @@ LazyData: TRUE
 Imports:
   tracerer,
   jsonlite,
-  rBEAST,
   rJava
 Suggests:
   ape,
