@@ -40,7 +40,7 @@ Investigating the posterior:
 
 ```{r}
 names(posterior_trees)
-testit::assert(length(posterior_trees) == 10)
+testit::assert(length(posterior_trees) == 11)
 ```
 
 We can see that the posterior has multiple states.

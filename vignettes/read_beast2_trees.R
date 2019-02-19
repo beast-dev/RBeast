@@ -13,7 +13,7 @@ posterior_trees <- read_beast2_trees(trees_file)
 
 ## ------------------------------------------------------------------------
 names(posterior_trees)
-testit::assert(length(posterior_trees) == 10)
+testit::assert(length(posterior_trees) == 11)
 
 ## ------------------------------------------------------------------------
 testit::assert(class(posterior_trees[[1]]) == "phylo")
@@ -26,8 +26,7 @@ for (p in posterior_trees) {
 ## ----fig.width = 7, fig.height = 7---------------------------------------
 class(posterior_trees) <- "multiPhylo"
 phangorn::densiTree(
-  posterior_trees, 
-  type = "cladogram", 
+  posterior_trees,
+  type = "cladogram",
   alpha = 1
 )
-
