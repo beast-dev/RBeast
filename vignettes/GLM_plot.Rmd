@@ -1,0 +1,37 @@
+---
+title: "Plotting the result of a GLM in BEAST"
+author: "Luiz Max Carvalho"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reading a BEAST posterior}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+## Load the package
+```{r pkg}
+library(RBeast)
+```
+## Load the data
+
+```{r data}
+logfile <- system.file("extdata", "beast_glm_example.log", package = "RBeast")
+glm.log <- read.table(file = logfile, header = TRUE)
+```
+
+## Making the plot
+
+```{r glm1}
+predictor.names <- c("hostDistance",  "rangeOverlap", "roostStructures",
+                     "wingAspectRatio", "wingLoading", "bodySize")
+```
+
+```{r plot0, fig.align="center", fig.width=8, fig.asp = 0.6}
+plot_simple_glm(Names = predictor.names, Log = glm.log, intercept = FALSE,
+         conditional = TRUE, export = FALSE)
+```
+
+```{r plot1, fig.width=8, fig.asp = 0.6}
+plot_glm(Names = predictor.names, Log = glm.log, intercept = FALSE,
+         conditional = TRUE, export = FALSE)
+```
