@@ -6,6 +6,6 @@ test_that("read_beast2_trees: use", {
   )
   expect_true(file.exists(trees_file))
   posterior <- read_beast2_trees(trees_file)
-  expect_equal(length(posterior), 10)
+  expect_equal(length(posterior), 11)
   expect_equal(class(posterior[[1]]), "phylo")
 })

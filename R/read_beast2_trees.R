@@ -7,7 +7,7 @@
 #'   )
 #'   testit::assert(file.exists(trees_file))
 #'   posterior <- read_beast2_trees(trees_file)
-#'   testit::assert(length(posterior) == 10)
+#'   testit::assert(length(posterior) == 11)
 #'   testit::assert(class(posterior[[1]]) == "phylo")
 #' @export
 #' @author Richel J.C. Bilderbeek
