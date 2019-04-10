@@ -36,7 +36,7 @@
     names(result) <- c("lwr", "mean", "upr")
     for (k in 1:K) {
         pos <- which(inds[, k] == 1)
-        if(){
+        if(length(pos) == 0){
           result[k, ] <- data.frame(lwr = 0.0, mean = 0.0, upr = 0.0)
         }else{
           result[k, ] <- .get_summary(betas[, k][])
